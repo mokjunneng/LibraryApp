@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Library App</title>
+    <link rel="stylesheet" href="./assets/css/variables.css">
+    <link rel="stylesheet" href="./assets/css/nav.css">
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/section.css">
+    <link rel="stylesheet" href="./node_modules/bulma/css/bulma.css">
+
+    <link rel="import" href="./sections/check-in-out/borrow-books.html">
+    <link rel="import" href="./sections/directory/book-directory.html">
+    <link rel="import" href="./sections/user-records/user-records.html">
+  </head>
+  <body>
+    <!-- top banner -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class=navbar-item>Library App</a>
+      </div>
+    </nav>
+    <!-- sidebar -->
+    <div class="columns is-fullheight">
+      <div class="column is-2 is-sidebar-menu">
+        <aside class="menu">
+          <p class="menu-label">
+            General
+          </p>
+          <ul class="menu-list category-general">
+            <li><button type="button" id="button-borrow-books" data-section="borrow-books" class="nav-button">Check In/Out</button></li>
+            <li><button type="button" id="button-book-directory" data-section="book-directory" class="nav-button">Book Directory</button></li>
+          </ul>
+          <p class="menu-label">
+            Administration
+          </p>
+          <ul class="menu-list category-admin">
+            <li><button type="button" id="button-user-records" data-section="user-records" class="nav-button">User Records</button></li>
+            <li><button type="button" id="button-ongoing-borrowers" data-section="ongoing-borrowers" class="nav-button">Ongoing Borrowers</button></li>
+            <li><button type="button" id="button-account-settings" data-section="account-settings" class="nav-button">Account Settings</button></li>
+          </ul>
+        </aside>
+      </div>
+      <main class="column content js-content"></main>
+    </div>
+    <script>
+      require("./assets/imports")
+      require('./assets/nav')
+    </script>
+  </body>
+</html>

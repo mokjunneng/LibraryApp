@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "mokjn",
+    "password": "bh6263032",
+    "database": "libraryappdb",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}

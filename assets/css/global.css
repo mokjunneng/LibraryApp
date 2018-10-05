@@ -1,0 +1,12 @@
+.content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  background-color: var(--color-main-content);
+}
+.content.is-shown {
+  visibility: visible;
+  opacity: 1;
+}

@@ -1,0 +1,17 @@
+:root {
+  --color-sidebar:        hsl(0, 0%, 29%);
+  --color-sidebar-items:  hsl(0, 0%, 100%);
+  --color-main-content:   hsl(0, 0%, 86%);
+
+  --color-accent:   black; /* Fallback */
+
+  --navbar-height: 3.25rem;
+}
+
+.category-general {
+  --color-button-is-selected: hsl(222, 53%, 50%);
+}
+
+.category-admin {
+  --color-button-is-selected: hsla(222, 24%, 50%);
+}
