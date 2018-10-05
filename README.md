@@ -1,7 +1,7 @@
 # LibraryApp
 This is a library app project that is specifically created for an overseas community program in Vietnam
 
-# MySQL Setup
+## MySQL Setup (exploring sqlite3 for now)
 1. download mysql installer
 	install mysql shell
 	install mysql community server
