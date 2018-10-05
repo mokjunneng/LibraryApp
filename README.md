@@ -1,7 +1,7 @@
 # LibraryApp
 This is a library app project that is specifically created for an overseas community program in Vietnam
 
-# MySQL Setup
+## MySQL Setup (exploring sqlite3 for now)
 1. download mysql installer
 	install mysql shell
 	install mysql community server
@@ -15,14 +15,14 @@ This is a library app project that is specifically created for an overseas commu
 4. Make mysql8 compatible with sequelize
 	type "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';" in workbench query
 
-# Configuring electron app
-install vs2015 build tools
-npm init
-npm --save-dev electron
-npm install sqlite3 --build-from-source --runtime=electron --target=3.0.0 --dist-url=https://atom.io/download/electron
-npm run start
+## Configuring electron app
+- install vs2015 build tools
+- npm init
+- npm --save-dev electron
+- npm install sqlite3 --build-from-source --runtime=electron --target=3.0.0 --dist-url=https://atom.io/download/electron
+- npm run start
 
-# Breakdown of app file structure
+## Breakdown of app file structure
 - assets
 	stores things like images, icons, css stylesheets
 - main-process
