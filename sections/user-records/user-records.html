@@ -38,13 +38,20 @@
     </table>
     <br>
     <h2>Add User</h2>
-    Name: 
-    <input type="text" id="username-input" placeholder="e.g. Mok Jun Neng">
-    <br>
-    IC:
-    <input type="text" id="ic-input" placeholder="e.g. a12345">
-    <br>
-    <button id="add-user-btn">Add</button>
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" id="username-input" type="text" placeholder="e.g. Mok Jun Neng">
+      </div>
+      <div class="field">
+        <label class="label">IC</label>
+        <div class="control">
+          <input class="input" id="ic-input" type="text" placeholder="e.g. a12345">
+      </div>
+    </div>
+      <div class="control">
+        <button class="button is-primary" id="add-use-btn">Submit</button>
+      </div>
 
     <script>
       require('./renderer-process/user-records/records-table.js')
