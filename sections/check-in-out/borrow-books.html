@@ -7,20 +7,55 @@
       <p id=intro2>This is the section to borrow books<br>
       to borrow a book type in the book<b> if not click on Returning above</b>.
       </p>
-      <form id='borrowform'  method="post">
-        Book Title:<br>
-        <input type="text" name="title">
-        <br>
-        ID:<br>
-        <input type="text" name="id">
-        <br>
-        Name of Borrower:<br>
-        <input type="text" name="username"> <br>
-        Date borrowed:<br>
-        <input type="date" name="Date">
-        <br>
-        <input type="submit" onclick="borrow_form()">
-        </form>
+      <div class="field">
+        <label class="label">Book ID</label>
+        <div class="control">
+          <input class="input" id="add-borrow-books" type="text" placeholder="Book Title">
+        </div>
+      </div>
+      <div class="control">
+        <label class="label">Book Title</label>
+        <input class="input" id="read-book-title" type="text" value="This text is readonly" readonly>
+      </div>
+      <div class="field">
+        <label class="label">ID of Borrower</label>
+        <div class="control">
+          <input class="input" id="add-borrower-id" type="text" placeholder="ID">
+        </div>
+      </div>
+      <div class="control">
+        <label class="label">Borrower's Name</label>
+        <input class="input" id="read-borrower-name" type="text" value="This text is readonly" readonly>
+      </div>
+      <label class="label">Due Date(default is 2 weeks)</label>
+      <div class="field is-horizontal">
+        <div class="control">
+          <div class="select" id="due-day">
+            <select>
+              <option>01</option>
+              <option>02</option>
+              <option>03</option>
+            </select>
+          </div>
+        </div><div class="control">
+          <div id="due-month" class="select">
+            <select>
+              <option>Jan</option>
+              <option>Feb</option>
+            </select>
+          </div>
+        </div><div class="control">
+          <div class="select" id="due-year">
+            <select>
+              <option>2018</option>
+              <option>2019</option>
+            </select>
+          </div>
+        </div>
+      </div>
+        <div class="control">
+          <button class="button is-primary" id="submit-borrow">Submit</button>
+        </div>
     </div>
     <div id="Page2" >
       Returning
@@ -28,20 +63,29 @@
       <p id=intro>This is the section to return books<br>
       to return a book type in the book<b> if not click on Borrowing above</b>.
       </p>
-      <form id="returnform"  method="post">
-        Book Title:<br>
-        <input type="text" name="title">
-        <br>
-        ID:<br>
-        <input type="text" name="id">
-        <br>
-        Name of Borrower:<br>
-        <input type="text" name="username">
-        <br>
-        Due Date:<br>
-        <input type="date" name="returned">
-        <br>
-        <input type="submit" onclick="book_return()">
+      <div class="field">
+        <label class="label">Book ID</label>
+        <div class="control">
+          <input class="input" id="add-book-return" type="text" placeholder="Book Title">
+        </div>
+      </div>
+      <div class="control">
+        <label class="label">Book Title</label>
+        <input class="input" id="read-return-title" type="text" value="This text is readonly" readonly>
+      </div>
+      <div class="field">
+        <label class="label">ID of Borrower</label>
+        <div class="control">
+          <input class="input" id="add-borrow-id" type="text" placeholder="ID">
+        </div>
+      </div>
+      <div class="control">
+        <label class="label">Borrower's Name</label>
+        <input class="input" id='read-borrow-name' type="text" value="This text is readonly" readonly>
+      </div>
+      <div class="control">
+          <button class="button is-primary" id='submit-return'>Submit</button>
+      </div>
     </div>
   </section>
   <script type="text/javascript">
