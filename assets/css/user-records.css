@@ -1,0 +1,33 @@
+#search-bar-input {
+    width: 40%;
+    font-size: 14px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+#search-bar-input:before {
+    font-family: 'Font Awesome\ 5 Free';
+    font-weight: 900;
+    content: "\f002";
+}
+
+#user-records-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+#user-records-table th, #user-records-table td {
+    text-align: left;
+    padding: 12px;
+}
+
+#user-records-table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#user-records-table tr.header, #user-records-table tr:hover {
+    background-color: #f1f1f1;
+}
