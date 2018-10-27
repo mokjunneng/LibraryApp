@@ -1,0 +1,11 @@
+#returnform {
+    background-color: lightblue;
+}
+#borrowform{
+  background-color: rgb(243, 178, 255);
+}
+#borrowtitle{text-align: center;}
+
+#Page2{
+  display: none;
+}
