@@ -1,5 +1,50 @@
 <template class="task-template">
+  <link rel="stylesheet" href="./assets/css/check-in-out.css">
   <section id="borrow-books-section" class="section js-section category-general">
-    <h1>Borrow books</h1>
+  <h1 id=borrowtitle>Borrow and return books </h1>
+   </p>
+    <div id="Page1">
+        Borrowing
+        <a id="return-button" href="#">Returning</a>
+        <p id=intro2>This is the section to borrow books<br>
+          to borrow a book type in the book<b> if not click on Returning above</b>.
+            <form id='borrowform'  method="post">
+            Book Title:<br>
+            <input type="text" name="title">
+            <br>
+            ID:<br>
+            <input type="text" name="id">
+            <br>
+            Name of Borrower:<br>
+            <input type="text" name="username"> <br>
+            Date borrowed:<br>
+            <input type="date" name="Date">
+            <br>
+            <input type="submit" onclick="borrow_form()">
+          </form>
+    </div>
+    <div id="Page2" >
+      Returning
+      <a id="borrow-button" href="#">Borrowing</a>
+      <p id=intro>This is the section to return books<br>
+      to return a book type in the book<b> if not click on Borrowing above</b>.
+        <form id="returnform"  method="post">
+          Book Title:<br>
+          <input type="text" name="title">
+          <br>
+          ID:<br>
+          <input type="text" name="id">
+          <br>
+          Name of Borrower:<br>
+          <input type="text" name="username">
+          <br>
+          Due Date:<br>
+          <input type="date" name="returned">
+          <br>
+          <input type="submit" onclick="book_return()">
+    </div>
   </section>
+  <script type="text/javascript">
+   require('./renderer-process/check-in-out/check-in.js')
+  </script>
 </template>
