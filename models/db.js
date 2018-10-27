@@ -48,4 +48,96 @@ db.run(createUserTable, [], (err) => {
   }
 })
 
+function getBooks() {
+  let sql = `SELECT * FROM book`;
+  return new Promise((resolve, reject) => {
+    db.all(sql, [], (err, rows) => {
+      if (err){
+        return reject(err);
+      }
+      resolve(rows);
+    });
+  });
+}
+
+function getBook(bookId) {
+  let sql = `SELECT *
+             FROM book
+             WHERE book_id = ?`;
+  
+  return new Promise((resolve, reject) => { 
+    db.get(sql, [bookId], (err, row) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(row);
+    });
+  });
+}
+
+function getUsers() {
+  let sql = `SELECT * FROM user`;
+  return new Promise((resolve, reject) => {
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(rows);
+    })
+  })
+}
+
+function getUser(ic) {
+  let sql = `SELECT *
+             FROM user
+             WHERE ic = ?`;
+  
+  return new Promise((resolve, reject) => {
+    db.get(sql, [ic], (err, row) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(row);
+    });
+  });
+}
+
+function updateBook(bookId, title, category, author, borrowed_by, date_of_return, date_of_borrow) {
+  let sql = `UPDATE book
+             SET title = ?, category = ?, author = ?, borrowed_by = ?, date_of_return = ?, date_of_borrow = ?
+             WHERE book_id = ?`;
+  let data = [title, category, author, borrowed_by, date_of_return, date_of_borrow, bookId];
+  return new Promise((resolve, reject) => {
+    db.run(sql, data, function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`Row updated: ${this.changes}`);
+    });
+  });
+}
+
+function updateUser(ic, name, borrowed_books, access) {
+  let sql = `UPDATE user
+             SET name = ?, borrowed_books = ?, access = ?
+             WHERE ic = ?`;
+  let data = [name, borrowed_books, access, ic];
+  return new Promise((resolve, reject) => {
+    db.run(sql, data, function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`Row updated: ${this.changes}`);
+    });
+  });
+}
+
 module.exports.db = db
+module.exports.db.getBooks = getBooks; 
+module.exports.db.getBook = getBook;
+module.exports.db.getUsers = getUsers;
+module.exports.db.getUser = getUser;
+module.exports.db.updateBook = updateBook;
+module.exports.db.updateUser = updateUser;
+
+
