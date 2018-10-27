@@ -1,8 +1,8 @@
-
+<!DOCTYPE html>
+<html>
 <template class="task-template">
   <section id="book-directory-section" class="section js-section category-general">
     <h1>Book Directory</h1>
-  <div class="container is-widescreen">
   <div class="field-body">
     <p>
     <div class="field has-addons">
@@ -16,8 +16,7 @@
       </span>
     </p>
     <p class="control has-icons-left is-expanded">
-      <input class="input" type="text" id="myInput" onkeyup="showRelevantEntries()" placeholder="Search">
-
+      <input class="input" type="search" id="searchInput" placeholder="Search">
       <span class="icon is-small is-left">
         <i class="fas fa-search"></i>
       </span>
@@ -32,23 +31,61 @@
 
 	  </div>
   </div>
-
-    <div class="container">
+    <div class="container has-icons-left">
       <p>
-  		  <ul id="myUL">
-  		  <li><a href="#">Adele</a></li>
-  		  <li><a href="#">Agnes</a></li>
-  		  <li><a href="#">Billy</a></li>
-  		  <li><a href="#">Bob</a></li>
-
-  		  <li><a href="#">Calvin</a></li>
-  		  <li><a href="#">Christina</a></li>
-  		  <li><a href="#">Cindy</a></li>
+  		  <ul id="directoryList">
+          <li class="accordion"><a href="#">
+            1984 by George Orwell
+          </a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 123456 <br>
+          Available</p>
+        </div>
+  		  <li class="accordion"><a href="#">
+          Fahrenheit 451 by Rad Bradbury
+        </a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 234567 <br>
+          Borrowed on 02/11/18</p>
+        </div>
+  		  <li class="accordion"><a href="#">
+          To Kill a Mockingbird by Harper Lee
+        </a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 345678 <br>
+          Borrowed on 02/10/18</p>
+        </div>
+  		  <li class="accordion"><a href="#">Bob</a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 345678 <br>
+          Borrowed on 02/10/18</p>
+        </div>
+  		  <li class="accordion"><a href="#">Calvin</a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 345678 <br>
+          Borrowed on 02/10/18</p>
+        </div>
+  		  <li class="accordion"><a href="#">Christina</a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 345678 <br>
+          Borrowed on 02/10/18</p>
+        </div>
+  		  <li class="accordion"><a href="#">Cindy</a></li>
+        <div class="accordion-content">
+          <p>
+          ID: 345678 <br>
+          Borrowed on 02/10/18</p>
+        </div>
       </ul>
   		</p>
     </div>
   </section>
-  <script type="text/javascript" src="./assets/book-directory.js"></script>
-
+  <script type="text/javascript" src="./renderer-process/directory/book-directory.js"></script>
 </template>
 </html>
