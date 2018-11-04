@@ -16,7 +16,7 @@
       </span>
     </p>
     <p class="control has-icons-left is-expanded">
-      <input class="input" type="search" id="searchInput" placeholder="Search">
+      <input class="input" type="search" id="book-search-input" placeholder="Search">
       <span class="icon is-small is-left">
         <i class="fas fa-search"></i>
       </span>
@@ -28,64 +28,87 @@
         </span>
       </a>
     </p>
-
 	  </div>
   </div>
-    <div class="container has-icons-left">
-      <p>
-  		  <ul id="directoryList">
-          <li class="accordion"><a href="#">
-            1984 by George Orwell
-          </a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 123456 <br>
-          Available</p>
-        </div>
-  		  <li class="accordion"><a href="#">
-          Fahrenheit 451 by Rad Bradbury
-        </a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 234567 <br>
-          Borrowed on 02/11/18</p>
-        </div>
-  		  <li class="accordion"><a href="#">
-          To Kill a Mockingbird by Harper Lee
-        </a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 345678 <br>
-          Borrowed on 02/10/18</p>
-        </div>
-  		  <li class="accordion"><a href="#">Bob</a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 345678 <br>
-          Borrowed on 02/10/18</p>
-        </div>
-  		  <li class="accordion"><a href="#">Calvin</a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 345678 <br>
-          Borrowed on 02/10/18</p>
-        </div>
-  		  <li class="accordion"><a href="#">Christina</a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 345678 <br>
-          Borrowed on 02/10/18</p>
-        </div>
-  		  <li class="accordion"><a href="#">Cindy</a></li>
-        <div class="accordion-content">
-          <p>
-          ID: 345678 <br>
-          Borrowed on 02/10/18</p>
-        </div>
-      </ul>
-  		</p>
+    <div>
+      <table id="book-catalogue">
+        <tr class="header">
+          <th style="width:10%;">Book ID</th>
+          <th style="width:25%;">Title</th>
+          <th style="width:20%">Category</th>
+          <th style="width:20%">Author</th>
+          <th style="width:25%">Borrowed by</th>
+        </tr>
+      </table>
     </div>
-  </section>
+    <div class="field">
+      <h2>Add Books </h2>
+  <div class="columns">
+    <div class="column">
+  <label class="label">Title</label>
+  <div class="control has-icons-left has-icons-right">
+    <input class="input" type="text" placeholder="Book's Title">
+    <span class="icon is-small is-left">
+      <i class="fas fa-book"></i>
+    </span>
+  </div>
+  <label class="label">Author</label>
+  <div class="control has-icons-left has-icons-right">
+    <input class="input" type="text" placeholder="Author's Name">
+    <span class="icon is-small is-left">
+      <i class="fas fa-user"></i>
+    </span>
+  </div>
+</div>
+<div class="column">
+  <label class="label">Category</label>
+  <div class="dropdown is-hoverable">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+      <span>Categories</span>
+      <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+    <div class="dropdown-content">
+      <a href="#" class="dropdown-item">
+        Classic
+      </a>
+      <a href="#" class="dropdown-item">
+        Comics/Graphic Novel
+      </a>
+      <a href="#" class="dropdown-item">
+        Crime/Detective
+      </a>
+      <a href="#" class="dropdown-item">
+        Fable
+      </a>
+      <a href="#" class="dropdown-item">
+        Fantasy
+      </a>
+      <a href="#" class="dropdown-item">
+        Folklore
+      </a>
+      <a href="#" class="dropdown-item">
+        ...
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div>
+  <a class="button is-success">
+    <span class="icon is-small">
+      <i class="fas fa-check"></i>
+    </span>
+    <span>Add Book</span>
+  </a>
+</div>
+</div>
+</section>
   <script type="text/javascript" src="./renderer-process/directory/book-directory.js"></script>
 </template>
 </html>
