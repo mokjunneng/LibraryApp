@@ -64,8 +64,8 @@ function getBook(bookId) {
   let sql = `SELECT *
              FROM book
              WHERE book_id = ?`;
-  
-  return new Promise((resolve, reject) => { 
+
+  return new Promise((resolve, reject) => {
     db.get(sql, [bookId], (err, row) => {
       if (err) {
         return reject(err);
@@ -91,7 +91,7 @@ function getUser(ic) {
   let sql = `SELECT *
              FROM user
              WHERE ic = ?`;
-  
+
   return new Promise((resolve, reject) => {
     db.get(sql, [ic], (err, row) => {
       if (err) {
@@ -117,6 +117,21 @@ function updateBook(bookId, title, category, author, borrowed_by, date_of_return
   });
 }
 
+function updateBookById(bookId, borrowerId, dateOfReturn){
+  let sql = `UPDATE book
+           SET borrowed_by = ?, date_of_return = ?
+           WHERE book_id = ?`;
+  let data = [borrowerId, dateOfReturn, bookId];
+  return new Promise((resolve, reject) => {
+    db.run(sql, data, function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`Row updated: ${this.changes}`);
+    })
+  })
+}
+
 function updateUser(ic, name, borrowed_books, access) {
   let sql = `UPDATE user
              SET name = ?, borrowed_books = ?, access = ?
@@ -133,11 +148,9 @@ function updateUser(ic, name, borrowed_books, access) {
 }
 
 module.exports.db = db
-module.exports.db.getBooks = getBooks; 
+module.exports.db.getBooks = getBooks;
 module.exports.db.getBook = getBook;
 module.exports.db.getUsers = getUsers;
 module.exports.db.getUser = getUser;
 module.exports.db.updateBook = updateBook;
 module.exports.db.updateUser = updateUser;
-
-
