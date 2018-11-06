@@ -47,14 +47,14 @@
     <div class="column">
   <label class="label">Title</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input" type="text" placeholder="Book's Title">
+    <input class="input" type="text" placeholder="Book's Title" id="book-title">
     <span class="icon is-small is-left">
       <i class="fas fa-book"></i>
     </span>
   </div>
   <label class="label">Author</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input" type="text" placeholder="Author's Name">
+    <input class="input" type="text" placeholder="Author's Name" id="author-name">
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -62,50 +62,38 @@
 </div>
 <div class="column">
   <label class="label">Category</label>
-  <div class="dropdown is-hoverable">
-  <div class="dropdown-trigger">
-    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-      <span>Categories</span>
-      <span class="icon is-small">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-    </button>
+  <div id=genre class="select">
+    <select id="category">
+      <option value="Action">Action</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Classic">Classic</option>
+      <option value="Comic">Comic</option>
+      <option value="Crime">Crime</option>
+      <option value="Fantasy">Fantasy</option>
+      <option value="Science Fiction">Science Fiction</option>
+      <option value="Bibliography">Bibliography</option>
+      <option value="Children's Literature">Children's Literature</option>
+    </select>
   </div>
-  <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-    <div class="dropdown-content">
-      <a href="#" class="dropdown-item">
-        Classic
-      </a>
-      <a href="#" class="dropdown-item">
-        Comics/Graphic Novel
-      </a>
-      <a href="#" class="dropdown-item">
-        Crime/Detective
-      </a>
-      <a href="#" class="dropdown-item">
-        Fable
-      </a>
-      <a href="#" class="dropdown-item">
-        Fantasy
-      </a>
-      <a href="#" class="dropdown-item">
-        Folklore
-      </a>
-      <a href="#" class="dropdown-item">
-        ...
-      </a>
-    </div>
+  <label class="label">Book Label</label>
+  <div class="control has-icons-left has-icons-right">
+    <input class="input" type="text" placeholder="Book Label" id="book-label">
+    <span class="icon is-small is-left">
+      <i class="fas fa-archive"></i>
+    </span>
   </div>
-</div>
 </div>
 </div>
 <div>
-  <a class="button is-success">
+  <button class="button is-success" id="add-book-button">
     <span class="icon is-small">
       <i class="fas fa-check"></i>
     </span>
     <span>Add Book</span>
-  </a>
+  </button>
+  <!-- <input id="numb">
+  <button type="button" onclick="myFunction()">Submit</button>
+  <p id="demo"></p> -->
 </div>
 </div>
 </section>

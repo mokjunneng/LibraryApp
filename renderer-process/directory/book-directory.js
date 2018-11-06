@@ -1,6 +1,6 @@
 const database = require("./models/db.js"); //../../models/databases/db
 
-database.db.getBooks().then(books => {
+database.getBooks().then(books => {
   //var table = document.createElement("TABLE");
   books.forEach(book => {
     // var table;
@@ -68,7 +68,47 @@ function searchFunction() {
         countAll = 0;
         countAppear = 0;
     }
-}
+};
 
-input = document.getElementById("book-search-input");
+var input = document.getElementById("book-search-input");
 input.addEventListener("keyup", searchFunction);
+
+// function addBookFunction() {
+//   database.db.addBook(document.getElementById("book-title", "catagory", "author-name");
+// };
+
+// category = document.getElementById("category");
+// categorySelected = category.options[category.selectedIndex].text;
+
+var addBook = document.getElementById("add-book-button");
+addBook.addEventListener("click", () => {
+  var bookLabel = document.getElementById("book-label").value;
+  var bookTitle = document.getElementById("book-title").value;
+  var categorySelected = document.getElementById("category").value;
+  var authorName = document.getElementById("author-name").value;
+  database.addBook(bookLabel, bookTitle, categorySelected, authorName);
+});
+
+// function myFunction() {
+//     var x, text;
+//
+//     // Get the value of the input field with id="numb"
+//     x = document.getElementById("numb").value;
+//
+//     // If x is Not a Number or less than one or greater than 10
+//     if (isNaN(x) || x < 1 || x > 10) {
+//         text = "Input not valid";
+//     } else {
+//         text = "Input OK";
+//     }
+//     document.getElementById("demo").innerHTML = text;
+// }
+
+
+//addBook.addEventListener("click", console.log("button clicked"));
+
+// document.getElementById("add-book-button").addEventListener("click", function(){
+//     this.style.backgroundColor = "red";
+// });
+
+//bookId, title, category, author, borrowed_by, date_of_return, date_of_borrow
