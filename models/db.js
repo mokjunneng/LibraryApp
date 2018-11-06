@@ -110,9 +110,10 @@ function updateBook(bookId, title, category, author, borrowed_by, date_of_return
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
       if (err) {
-        return console.error(err.message);
+        reject(err)
       }
       console.log(`Row updated: ${this.changes}`);
+      resolve();
     });
   });
 }
@@ -195,14 +196,25 @@ function checkExistingUser(userId){
     });
   });
 }
-module.exports.db = db
-module.exports.db.getBooks = getBooks;
-module.exports.db.getBook = getBook;
-module.exports.db.getUsers = getUsers;
-module.exports.db.getUser = getUser;
-module.exports.db.updateBook = updateBook;
-module.exports.db.updateUser = updateUser;
-module.exports.db.checkExistingBook = checkExistingBook;
-module.exports.db.updateBookById = updateBookById;
-module.exports.db.updateBookByIdWoDate = updateBookByIdWoDate;
-module.exports.db.checkExistingUser = checkExistingUser;
+
+module.exports = {
+  getBooks: getBooks,
+  getBook: getBook,
+  getUsers: getUsers,
+  getUser: getUser,
+  updateBook: updateBook,
+  updateUser: updateUser,
+  updateBookById: updateBookById,
+  updateBookByIdWoDate: updateBookByIdWoDate,
+}
+// module.exports.db = db
+// module.exports.db.getBooks = getBooks;
+// module.exports.db.getBook = getBook;
+// module.exports.db.getUsers = getUsers;
+// module.exports.db.getUser = getUser;
+// module.exports.db.updateBook = updateBook;
+// module.exports.db.updateUser = updateUser;
+// module.exports.db.checkExistingBook = checkExistingBook;
+// module.exports.db.updateBookById = updateBookById;
+// module.exports.db.updateBookByIdWoDate = updateBookByIdWoDate;
+// module.exports.db.checkExistingUser = checkExistingUser;
