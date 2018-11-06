@@ -119,9 +119,10 @@ function updateBook(bookId, title, category, author, borrowed_by, date_of_return
 
 function updateBookById(bookId, borrowerId, dateOfReturn){
   let sql = `UPDATE book
-           SET borrowed_by = ?, date_of_return = ?
+           SET borrowed_by = ?, date_of_return = ?, date_of_borrow = ?
            WHERE book_id = ?`;
-  let data = [borrowerId, dateOfReturn, bookId];
+  let data = [borrowerId, dateOfReturn, bookId, new Date().toISOString()];
+  console.log(data)
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
       if (err) {
@@ -132,6 +133,20 @@ function updateBookById(bookId, borrowerId, dateOfReturn){
   })
 }
 
+function updateBookByIdWoDate(bookId, borrowerId){
+  let sql = `UPDATE book
+           SET borrowed_by = ?
+           WHERE book_id = ?`;
+  let data = [borrowerId, bookId];
+  return new Promise((resolve, reject) => {
+    db.run(sql, data, function(err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log(`Row updated: ${this.changes}`);
+    })
+  })
+}
 function updateUser(ic, name, borrowed_books, access) {
   let sql = `UPDATE user
              SET name = ?, borrowed_books = ?, access = ?
@@ -147,6 +162,35 @@ function updateUser(ic, name, borrowed_books, access) {
   });
 }
 
+function checkExistingBook(bookId) {
+  let sql= `SELECT 1
+            FROM book
+            WHERE book_id = ?`
+  let data = [bookId];
+  return new Promise((resolve, reject) => {
+    db.run(sql, data, function(err) {
+      if (err) {
+        reject(err)
+      }
+      resolve(1)
+    });
+  });
+}
+
+function checkExistingUser(userId){
+  let sql= `SELECT 1
+            FROM user
+            WHERE user_id = ?`
+  let data = [userId];
+  return new Promise((resolve, reject) => {
+    db.run(sql, data, function(err) {
+      if (err) {
+        reject(err)
+      }
+      resolve(1)
+    });
+  });
+}
 module.exports.db = db
 module.exports.db.getBooks = getBooks;
 module.exports.db.getBook = getBook;
@@ -154,3 +198,7 @@ module.exports.db.getUsers = getUsers;
 module.exports.db.getUser = getUser;
 module.exports.db.updateBook = updateBook;
 module.exports.db.updateUser = updateUser;
+module.exports.db.checkExistingBook = checkExistingBook;
+module.exports.db.updateBookById = updateBookById;
+module.exports.db.updateBookByIdWoDate = updateBookByIdWoDate;
+module.exports.db.checkExistingUser = checkExistingUser;
