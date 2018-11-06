@@ -50,7 +50,7 @@ const userProfileStyle = {
 
 function UserProfile(props) {
   return (
-    <tr style={userProfileStyle} className="hidden">
+    <tr style={userProfileStyle} className="hidden user-profile">
       <td colSpan="4"><p>Hello this is the profile of a user</p></td>
     </tr>
   )
@@ -91,7 +91,7 @@ class UserRecordsTable extends React.Component {
 
   searchFunction(e) {
     var filter = e.target.value.trim().toUpperCase();
-    var rows = Array.prototype.slice.call(document.getElementById("user-records-table").querySelectorAll("tr:not(.header)"));
+    var rows = Array.prototype.slice.call(document.getElementById("user-records-table").querySelectorAll("tr:not(.header):not(.user-profile)"));
     rows.forEach((row) => {
       var data = "";
       Array.prototype.slice.call(row.getElementsByTagName("td")).forEach((col) => {
