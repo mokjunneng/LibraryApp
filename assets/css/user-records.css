@@ -19,7 +19,7 @@
     font-size: 16px;
 }
 
-#user-records-table th, #user-records-table td {
+#user-records-table tbody th, #user-records-table td {
     text-align: left;
     padding: 12px;
 }
@@ -28,6 +28,17 @@
     border-bottom: 1px solid #ddd;
 }
 
-#user-records-table tr.header, #user-records-table tr:hover {
+#user-records-table tbody tr.header, #user-records-table tr:hover {
     background-color: #f1f1f1;
+}
+
+/* .user-profile-box {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+} */
+
+.active {
+    background-color: #669999;
 }

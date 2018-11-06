@@ -4,38 +4,15 @@
     <p>This section contains a table that shows the records of all users of library.</p>
     <br>
     <input type="text" id="search-bar-input" placeholder="Search for names...">
-    <table id="user-records-table">
+    <div id="root"></div>
+    <!-- <table id="user-records-table">
       <tr class="header">
         <th style="width:40%;">Name</th>
         <th style="width:20%;">IC</th>
-        <th style="width:20%">Borrow Times</th>
-        <th style="width:20%">Last Seen</th>
+        <th style="width:15%">Borrow Times</th>
+        <th style="width:5%"></th>
       </tr>
-      <tr>
-        <td>Nhac Tien Chien</td>
-        <td>a123456</td>
-        <td>2</td>
-        <td>2/21/2017</td>
-      </tr>
-      <tr>
-        <td>Min Wae Aung</td>
-        <td>b123456</td>
-        <td>7</td>
-        <td>8/5/2018</td>
-      </tr>
-      <tr>
-        <td>Phang Nguyen Quang Vinh</td>
-        <td>c123456</td>
-        <td>4</td>
-        <td>4/2/2018</td>
-      </tr>
-      <tr>
-        <td>Chuc Mung Nam Moi</td>
-        <td>d123456</td>
-        <td>3</td>
-        <td>5/7/2018</td>
-      </tr>
-    </table>
+    </table> -->
     <br>
     <h2>Add User</h2>
     <div class="field">
@@ -43,18 +20,16 @@
       <div class="control">
         <input class="input" id="username-input" type="text" placeholder="e.g. Mok Jun Neng">
       </div>
-      <div class="field">
-        <label class="label">IC</label>
-        <div class="control">
-          <input class="input" id="ic-input" type="text" placeholder="e.g. a12345">
+    </div>
+    <div class="field">
+      <label class="label">IC</label>
+      <div class="control">
+        <input class="input" id="ic-input" type="text" placeholder="e.g. a12345">
       </div>
     </div>
-      <div class="control">
-        <button class="button is-primary" id="add-use-btn">Submit</button>
-      </div>
-
-    <script>
-      require('./renderer-process/user-records/records-table.js')
-    </script>
+    <div class="control">
+      <button class="button is-primary" id="add-user-btn">Submit</button>
+    </div>
+    <script type="text/babel" src="./renderer-process/user-records/table.js"></script>
   </section>
 </template>
