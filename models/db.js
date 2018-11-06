@@ -169,10 +169,12 @@ function checkExistingBook(bookId) {
   let data = [bookId];
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
+      var result = 1
       if (err) {
-        reject(err)
+        result = 0
+        reject(result)
       }
-      resolve(1)
+      resolve(result)
     });
   });
 }
@@ -184,10 +186,12 @@ function checkExistingUser(userId){
   let data = [userId];
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
+      var result = 1
       if (err) {
-        reject(err)
+        result = 0
+        reject(result)
       }
-      resolve(1)
+      resolve(result)
     });
   });
 }

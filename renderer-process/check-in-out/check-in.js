@@ -35,25 +35,26 @@ function update_book(){
   var year_of_ret = document.getElementById('due-year').value;
   var date_of_ret=new Date(`${year_of_ret}-${month_of_ret}-${day_of_ret}T23:59:59+00:00`).toISOString();
   database.db.checkExistingBook(book_id_value).then((book_exist) => {
-  database.db.checkExistingUser(user_id_value).then((user_exist) => {
-    if (book_exist && user_exist) {
-      console.log("book exist!")
+    database.db.checkExistingUser(user_id_value).then((user_exist) => {
+      console.log(book_exist)
       console.log(user_exist)
-      console.log(user_id_value)
-      console.log(date_of_ret)
-      console.log(book_id_value)
-      database.db.updateBookById(book_id_value,user_id_value,date_of_ret).then(() => {
-        document.getElementById('borrower-form').reset();
-      })
+      if (book_exist && user_exist) {
+        console.log("book exist!")
+        database.db.updateBookById(book_id_value,user_id_value,date_of_ret).then(() => {
+          document.getElementById('borrower-form').reset();
+        })
       } else {
-      console.log("No");
+        console.log("Invalid book id or user id");
       }
-      }).catch(err => {
+    }).catch(err => {
       console.log(err)
-      console.log("error in db")
-      })
-      })
-      }
+      console.log("error in user db")
+    })
+  }).catch(err => {
+    console.log(err)
+    cconsole.log("error in book db")
+  })
+}
 
 function update_book_ret(){
   var book_id_value = document.getElementById('add-book-return').value;
