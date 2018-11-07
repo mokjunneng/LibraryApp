@@ -90,6 +90,7 @@ function update_book_borrow(){
     db.updateBook(book_label, book.title, book.category, book.author, user_id, date_of_ret, new Date(Date.now()).toISOString()).then(() => {
       submit_borrow_button.classList.remove("is-loading")
       // alert("Book successfully borrowed!")
+      update_user(user_id, book_label);
     }).catch(err => {
       alert("Error updating book");
       submit_borrow_button.classList.remove("is-loading")
@@ -103,6 +104,13 @@ function update_book_ret(){
   var book_label = document.getElementById('return-book-label').value;
   var user_id = document.getElementById('returner-id').value;
   db.getBook(book_label).then(book => {
+    // Noone borrowing
+    if (!book.borrowed_by) {
+      alert("Book has not been borrowed by anyone.")
+      submit_return_button.classList.remove("is-loading")
+      return
+    }
+    // User id mismatch
     if (book.borrowed_by !== user_id) {
       alert("Wrong borrower id");
       submit_return_button.classList.remove("is-loading")
@@ -111,10 +119,34 @@ function update_book_ret(){
     db.updateBook(book_label, book.title, book.category, book.author, 0, "", "").then(() => {
       submit_return_button.classList.remove("is-loading")
       // alert("Book successfully returned!")
+      update_user(user_id, book_label, borrow=false)
     }).catch(err => {
       alert("Error updating book");
       submit_return_button.classList.remove("is-loading")
     })
   })
   document.getElementById("return-form").reset();
+}
+
+function update_user(ic, book_label, borrow=true) {
+  db.getUser(ic).then(user => {
+    var borrowed_books = JSON.parse(user.borrowed_books);
+    // Initialize array
+    if (!borrowed_books) { borrowed_books = []; }
+    if (borrow) {
+      borrowed_books.push(book_label)
+    }else if (borrowed_books) {
+      var index = borrowed_books.indexOf(book_label);
+      if (index > -1) {
+        borrowed_books.splice(index, 1);
+      }
+    }
+    console.log(borrowed_books)
+    db.updateUser(ic, user.name, JSON.stringify(borrowed_books)).catch(err => {
+      alert("Error updating user.")
+    })
+  }).catch(err => {
+    console.log(err)
+    alert("Error getting user.")
+  })
 }

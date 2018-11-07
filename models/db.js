@@ -1,3 +1,34 @@
+// function updateBookById(bookId, borrowerId, dateOfReturn){
+//   let sql = `UPDATE book
+//            SET borrowed_by = ?, date_of_return = ?, date_of_borrow = ?
+//            WHERE book_id = ?`;
+//   let data = [borrowerId, dateOfReturn, bookId, new Date().toISOString()];
+//   console.log(data)
+//   return new Promise((resolve, reject) => {
+//     db.run(sql, data, function(err) {
+//       if (err) {
+//         return console.error(err.message);
+//       }
+//       console.log(`Row updated: ${this.changes}`);
+//     })
+//   })
+// }
+
+// function updateBookByIdWoDate(bookId, borrowerId){
+//   let sql = `UPDATE book
+//            SET borrowed_by = ?
+//            WHERE book_id = ?`;
+//   let data = [borrowerId, bookId];
+//   return new Promise((resolve, reject) => {
+//     db.run(sql, data, function(err) {
+//       if (err) {
+//         return console.error(err.message);
+//       }
+//       console.log(`Row updated: ${this.changes}`);
+//     })
+//   })
+// }
+
 const sqlite3 = require('sqlite3').verbose()
 
 let db = new sqlite3.Database('./models/databases/libraryapp.db', (err) => {
@@ -11,14 +42,17 @@ let db = new sqlite3.Database('./models/databases/libraryapp.db', (err) => {
 // datetime format ISO8601: YYYY-MM-DD HH:MM:SS.SSS
 // list format: comma separated item in STRING
 // boolean format: integer 0 or 1
-
 // datetime columns: date_of_return, date_of_borrow
+
+// consider setting a deleted column
 const createBookTable = "CREATE TABLE IF NOT EXISTS book \
-(book_id integer PRIMARY KEY,\
+(book_id integer NOT NULL PRIMARY KEY,\
+book_label text NOT NULL,\
 title text NOT NULL,\
 category text NOT NULL,\
 author text NOT NULL,\
 borrowed_by integer DEFAULT 0,\
+date_of_entry text NOT NULL,\
 date_of_return text,\
 date_of_borrow text\
 )"
@@ -26,11 +60,14 @@ date_of_borrow text\
 // boolean column: access
 // list column: borrowed_books
 const createUserTable = "CREATE TABLE IF NOT EXISTS user \
-(user_id integer PRIMARY_KEY,\
+(user_id integer NOT NULL PRIMARY KEY,\
 name text UNIQUE NOT NULL,\
 ic text UNIQUE NOT NULL,\
 borrowed_books text,\
-access integer DEFAULT 1\
+access integer DEFAULT 1,\
+borrow_times integer DEFAULT 0,\
+last_seen text,\
+date_of_entry text\
 )"
 
 db.run(createBookTable, [], (err) => {
@@ -47,6 +84,8 @@ db.run(createUserTable, [], (err) => {
     console.log("user table initialized")
   }
 })
+
+// Can factorize all the error functions out
 
 function getBooks() {
   let sql = `SELECT * FROM book`;
@@ -100,7 +139,49 @@ function getUser(ic) {
       resolve(row);
     });
   });
-}
+};
+
+function addUser(name, ic) {
+  let sql = `INSERT INTO user
+  (name, ic, date_of_entry)
+  VALUES (?, ?, datetime("now"))`
+  return new Promise((resolve, reject) => {
+    db.run(sql, [name, ic], function(err) {
+      if (err) {
+        return reject(err);
+      }
+      resolve("done");
+    });
+  });
+};
+
+function addBook(book_label, title, category, author) {
+ let sql = `INSERT INTO book
+ (book_label, title, category, author, date_of_entry)
+ VALUES (?, ?, ?, ?, datetime("now"))`
+ let data = [book_label, title, category, author];
+ console.log(data);
+ return new Promise((resolve, reject) => {
+   db.run(sql, data, function(err) {
+     if (err) {
+       return reject(err);
+     }
+     resolve("done");
+   });
+ });
+};
+
+function removeUser(ic) {
+  let sql = `DELETE FROM user WHERE ic=?`
+  return new Promise((resolve, reject) => {
+    db.run(sql, [ic], function(err) {
+      if (err) {
+        return console.error(err.message);
+      };
+      console.log(`Deleted user with ic: ${ic}`);
+    });
+  });
+};
 
 function updateBook(bookId, title, category, author, borrowed_by, date_of_return, date_of_borrow) {
   let sql = `UPDATE book
@@ -118,81 +199,17 @@ function updateBook(bookId, title, category, author, borrowed_by, date_of_return
   });
 }
 
-function updateBookById(bookId, borrowerId, dateOfReturn){
-  let sql = `UPDATE book
-           SET borrowed_by = ?, date_of_return = ?, date_of_borrow = ?
-           WHERE book_id = ?`;
-  let data = [borrowerId, dateOfReturn, bookId, new Date().toISOString()];
-  console.log(data)
-  return new Promise((resolve, reject) => {
-    db.run(sql, data, function(err) {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log(`Row updated: ${this.changes}`);
-    })
-  })
-}
-
-function updateBookByIdWoDate(bookId, borrowerId){
-  let sql = `UPDATE book
-           SET borrowed_by = ?
-           WHERE book_id = ?`;
-  let data = [borrowerId, bookId];
-  return new Promise((resolve, reject) => {
-    db.run(sql, data, function(err) {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log(`Row updated: ${this.changes}`);
-    })
-  })
-}
-function updateUser(ic, name, borrowed_books, access) {
+function updateUser(ic, name, borrowed_books) {
   let sql = `UPDATE user
-             SET name = ?, borrowed_books = ?, access = ?
+             SET name = ?, borrowed_books = ?
              WHERE ic = ?`;
-  let data = [name, borrowed_books, access, ic];
+  let data = [name, borrowed_books, ic];
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
       if (err) {
         return console.error(err.message);
       }
       console.log(`Row updated: ${this.changes}`);
-    });
-  });
-}
-
-function checkExistingBook(bookId) {
-  let sql= `SELECT 1
-            FROM book
-            WHERE book_id = ?`
-  let data = [bookId];
-  return new Promise((resolve, reject) => {
-    db.run(sql, data, function(err) {
-      var result = 1
-      if (err) {
-        result = 0
-        reject(result)
-      }
-      resolve(result)
-    });
-  });
-}
-
-function checkExistingUser(userId){
-  let sql= `SELECT 1
-            FROM user
-            WHERE user_id = ?`
-  let data = [userId];
-  return new Promise((resolve, reject) => {
-    db.run(sql, data, function(err) {
-      var result = 1
-      if (err) {
-        result = 0
-        reject(result)
-      }
-      resolve(result)
     });
   });
 }
@@ -202,19 +219,42 @@ module.exports = {
   getBook: getBook,
   getUsers: getUsers,
   getUser: getUser,
+  addUser: addUser,
+  addBook: addBook,
   updateBook: updateBook,
   updateUser: updateUser,
-  updateBookById: updateBookById,
-  updateBookByIdWoDate: updateBookByIdWoDate,
+  removeUser: removeUser
 }
-// module.exports.db = db
-// module.exports.db.getBooks = getBooks;
-// module.exports.db.getBook = getBook;
-// module.exports.db.getUsers = getUsers;
-// module.exports.db.getUser = getUser;
-// module.exports.db.updateBook = updateBook;
-// module.exports.db.updateUser = updateUser;
-// module.exports.db.checkExistingBook = checkExistingBook;
-// module.exports.db.updateBookById = updateBookById;
-// module.exports.db.updateBookByIdWoDate = updateBookByIdWoDate;
-// module.exports.db.checkExistingUser = checkExistingUser;
+// function checkExistingBook(bookId) {
+//   let sql= `SELECT 1
+//             FROM book
+//             WHERE book_id = ?`
+//   let data = [bookId];
+//   return new Promise((resolve, reject) => {
+//     db.run(sql, data, function(err) {
+//       var result = 1
+//       if (err) {
+//         result = 0
+//         reject(result)
+//       }
+//       resolve(result)
+//     });
+//   });
+// }
+
+// function checkExistingUser(userId){
+//   let sql= `SELECT 1
+//             FROM user
+//             WHERE user_id = ?`
+//   let data = [userId];
+//   return new Promise((resolve, reject) => {
+//     db.run(sql, data, function(err) {
+//       var result = 1
+//       if (err) {
+//         result = 0
+//         reject(result)
+//       }
+//       resolve(result)
+//     });
+//   });
+// }
