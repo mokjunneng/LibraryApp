@@ -28,34 +28,8 @@
           <label class="label">Borrower's Name</label>
           <input class="input" id="read-only-borrower-name" type="text" value="This text is readonly" readonly>
         </div>
-        <label class="label">Due Date(default is 2 weeks)</label>
-        <div class="field is-horizontal">
-          <div class="control">
-            <div class="select" >
-              <select id="due-day">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-              </select>
-            </div>
-          </div>
-          <div class="control">
-            <div class="select">
-              <select  id="due-month">
-                <option>01</option>
-                <option>02</option>
-              </select>
-            </div>
-          </div>
-          <div class="control">
-            <div class="select">
-              <select  id="due-year">
-                <option>2018</option>
-                <option>2019</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <label class="label">Due Date (default is 2 weeks)</label>
+        <div id="date-field" class="field"></div>
         <div class="control">
           <button class="button is-primary" id="submit-borrow">Submit</button>
         </div>
@@ -97,4 +71,5 @@
   <script type="text/javascript">
    require('./renderer-process/check-in-out/check-in.js')
   </script>
+  <script type="text/babel" src="./renderer-process/check-in-out/datepicker.js"></script>
 </template>

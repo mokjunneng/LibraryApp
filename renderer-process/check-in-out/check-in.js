@@ -1,40 +1,38 @@
 const db = require("../../models/db")
 
+// Attach onClick eventListeners to borrow/return link
 var shown = document.getElementById("return-button");
 shown.addEventListener("click", ()=> { show("Page2","Page1") });
-
 var shown_one = document.getElementById("borrow-button");
 shown_one.addEventListener("click", ()=> { show("Page1","Page2") });
 
+// Attach onBlur eventListeners to input fields
 var book_label = document.getElementById('borrow-book-label')
 book_label.addEventListener("blur", ()=> {
   var book_label_value = document.getElementById('borrow-book-label').value;
   bookcheck(book_label_value,'read-only-book-title','borrow-book-label');
 });
-
 var borrower_id = document.getElementById('borrower-id')
 borrower_id.addEventListener("blur", ()=> {
 var borrower_id_value = document.getElementById('borrower-id').value;
   idcheck(borrower_id_value,'read-only-borrower-name','borrower-id');
 });
-
-var submit_borrow_button = document.getElementById('submit-borrow');
-submit_borrow_button.addEventListener('click', ()=> {
-  update_book_borrow();
-});
-
 var book_return = document.getElementById('return-book-label')
 book_return.addEventListener("blur", ()=> {
 var book_return_value = document.getElementById('return-book-label').value;
  bookcheck(book_return_value,'read-only-return-title','return-book-label')
 });
-
 var borrower_id = document.getElementById('returner-id')
 borrower_id.addEventListener("blur", ()=> {
 var borrower_id_value = document.getElementById('returner-id').value;
   idcheck(borrower_id_value,'read-only-returner-name','returner-id');
 });
 
+// Attach onClick eventListeners to submit buttons
+var submit_borrow_button = document.getElementById('submit-borrow');
+submit_borrow_button.addEventListener('click', ()=> {
+  update_book_borrow();
+});
 var submit_return_button = document.getElementById('submit-return');
 submit_return_button.addEventListener('click', ()=> {
   update_book_ret()
@@ -73,58 +71,76 @@ function idcheck(userid, username, place){
   })
 }
 
+function checkEmptyField(val, field, alertMsg) {
+  if (!val) {
+    alert(alertMsg);
+    document.getElementById(field).focus();
+    return true
+  }
+  return false
+}
+
 function update_book_borrow(){
-  submit_borrow_button.classList.add("is-loading");
   var book_label = document.getElementById('borrow-book-label').value;
+  if (checkEmptyField(book_label, "borrow-book-label", "Book ID field is empty!")) { return }
   var user_id = document.getElementById('borrower-id').value;
-  var day_of_ret = document.getElementById('due-day').value;
-  var month_of_ret = document.getElementById('due-month').value;
-  var year_of_ret = document.getElementById('due-year').value;
-  var date_of_ret = new Date(`${year_of_ret}-${month_of_ret}-${day_of_ret}T23:59:59+00:00`).toISOString();
+  if (checkEmptyField(user_id, "borrower-id", "Borrower ID field is empty!")) { return }
+  var date_of_ret = document.getElementById("due-date-picker").value
+  // var date_of_ret = new Date(`${year_of_ret}-${month_of_ret}-${day_of_ret}T23:59:59+00:00`).toISOString();
+  // Set default due date to 2 weeks later if not specified
+  if (!date_of_ret) { 
+    date_of_ret = new Date();
+    date_of_ret.setDate(date_of_ret.getDate()+14);
+  } else {
+    date_of_ret = new Date(date_of_ret);
+  }
+  submit_borrow_button.classList.add("is-loading");
   db.getBook(book_label).then(book => {
     if (book.borrowed_by) {
       alert("Book is already being borrowed.");
-      submit_borrow_button.classList.remove("is-loading")
+      submit_borrow_button.classList.remove("is-loading");
       return
     }
-    db.updateBook(book_label, book.title, book.category, book.author, user_id, date_of_ret, new Date(Date.now()).toISOString()).then(() => {
-      submit_borrow_button.classList.remove("is-loading")
+    db.updateBook(book_label, book.title, book.category, book.author, user_id, date_of_ret.toISOString(), new Date(Date.now()).toISOString()).then(() => {
+      submit_borrow_button.classList.remove("is-loading");
       // alert("Book successfully borrowed!")
       update_user(user_id, book_label);
     }).catch(err => {
       alert("Error updating book");
-      submit_borrow_button.classList.remove("is-loading")
-    })
-  })
+      submit_borrow_button.classList.remove("is-loading");
+    });
+  });
   document.getElementById("borrow-form").reset();
 }
 
 function update_book_ret(){
-  submit_return_button.classList.add("is-loading")
   var book_label = document.getElementById('return-book-label').value;
+  if (checkEmptyField(book_label, "return-book-label", "Book ID field is empty!")) { return }
   var user_id = document.getElementById('returner-id').value;
+  if (checkEmptyField(user_id, "returner-id", "Borrower ID field is empty!")) { return }
+  submit_return_button.classList.add("is-loading");
   db.getBook(book_label).then(book => {
     // Noone borrowing
     if (!book.borrowed_by) {
-      alert("Book has not been borrowed by anyone.")
-      submit_return_button.classList.remove("is-loading")
+      alert("Book has not been borrowed by anyone.");
+      submit_return_button.classList.remove("is-loading");
       return
     }
     // User id mismatch
     if (book.borrowed_by !== user_id) {
       alert("Wrong borrower id");
-      submit_return_button.classList.remove("is-loading")
+      submit_return_button.classList.remove("is-loading");
       return
     }
     db.updateBook(book_label, book.title, book.category, book.author, 0, "", "").then(() => {
-      submit_return_button.classList.remove("is-loading")
+      submit_return_button.classList.remove("is-loading");
       // alert("Book successfully returned!")
-      update_user(user_id, book_label, borrow=false)
+      update_user(user_id, book_label, borrow=false);
     }).catch(err => {
       alert("Error updating book");
-      submit_return_button.classList.remove("is-loading")
-    })
-  })
+      submit_return_button.classList.remove("is-loading");
+    });
+  });
   document.getElementById("return-form").reset();
 }
 
@@ -141,7 +157,6 @@ function update_user(ic, book_label, borrow=true) {
         borrowed_books.splice(index, 1);
       }
     }
-    console.log(borrowed_books)
     db.updateUser(ic, user.name, JSON.stringify(borrowed_books)).catch(err => {
       alert("Error updating user.")
     })
