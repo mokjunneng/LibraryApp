@@ -1,54 +1,86 @@
-
 <template class="task-template">
   <section id="book-directory-section" class="section js-section category-general">
     <h1>Book Directory</h1>
-  <div class="container is-widescreen">
   <div class="field-body">
     <p>
-    <div class="field has-addons">
-    <p class="control">
-      <span class="select">
-        <select>
-          <option>All</option>
-          <option>Title</option>
-          <option>Author</option>
-        </select>
-      </span>
-    </p>
-    <p class="control has-icons-left is-expanded">
-      <input class="input" type="text" id="myInput" onkeyup="showRelevantEntries()" placeholder="Search">
-
-      <span class="icon is-small is-left">
-        <i class="fas fa-search"></i>
-      </span>
-    </p>
-    <p class="control">
-      <a class="button is-light">
-        <span class="icon">
-          <i class="fas fa-search"></i>
-        </span>
-      </a>
-    </p>
-
-	  </div>
-  </div>
-
-    <div class="container">
-      <p>
-  		  <ul id="myUL">
-  		  <li><a href="#">Adele</a></li>
-  		  <li><a href="#">Agnes</a></li>
-  		  <li><a href="#">Billy</a></li>
-  		  <li><a href="#">Bob</a></li>
-
-  		  <li><a href="#">Calvin</a></li>
-  		  <li><a href="#">Christina</a></li>
-  		  <li><a href="#">Cindy</a></li>
-      </ul>
-  		</p>
-    </div>
-  </section>
-  <script type="text/javascript" src="./assets/book-directory.js"></script>
-
-</template>
-</html>
+      <div class="field has-addons">
+        <p class="control">
+          <span class="select">
+            <select>
+              <option>All</option>
+              <option>Title</option>
+              <option>Author</option>
+            </select>
+          </span>
+        </p>
+        <p class="control has-icons-left is-expanded">
+          <input class="input" type="search" id="book-search-input" placeholder="Search">
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+        <p class="control">
+          <a class="button is-light">
+            <span class="icon">
+              <i class="fas fa-search"></i>
+            </span>
+          </a>
+        </p>
+	     </div>
+     </div>
+     <div id="root"></div>
+     <div class="field">
+       <h2>Add Books </h2>
+       <div class="columns">
+         <div class="column">
+           <label class="label">Title</label>
+           <div class="control has-icons-left has-icons-right">
+             <input class="input" type="text" placeholder="Book's Title" id="book-title">
+             <span class="icon is-small is-left">
+               <i class="fas fa-book"></i>
+             </span>
+           </div>
+           <label class="label">Author</label>
+           <div class="control has-icons-left has-icons-right">
+             <input class="input" type="text" placeholder="Author's Name" id="author-name">
+             <span class="icon is-small is-left">
+               <i class="fas fa-user"></i>
+             </span>
+           </div>
+         </div>
+         <div class="column">
+           <label class="label">Category</label>
+           <div id=genre class="select">
+             <select id="category">
+               <option value="Action">Action</option>
+               <option value="Adventure">Adventure</option>
+               <option value="Classic">Classic</option>
+               <option value="Comic">Comic</option>
+               <option value="Crime">Crime</option>
+               <option value="Fantasy">Fantasy</option>
+               <option value="Science Fiction">Science Fiction</option>
+               <option value="Bibliography">Bibliography</option>
+               <option value="Children's Literature">Children's Literature</option>
+             </select>
+           </div>
+           <label class="label">Book Label</label>
+           <div class="control has-icons-left has-icons-right">
+             <input class="input" type="text" placeholder="Book Label" id="book-label">
+             <span class="icon is-small is-left">
+               <i class="fas fa-archive"></i>
+             </span>
+           </div>
+         </div>
+       </div>
+       <div>
+         <button class="button is-success" id="add-book-btn">
+           <span class="icon is-small">
+             <i class="fas fa-check"></i>
+           </span>
+           <span>Add Book</span>
+         </button>
+       </div>
+     </div>
+   </section>
+   <script type="text/babel" src="./renderer-process/directory/book-directory.js"></script>
+ </template>
