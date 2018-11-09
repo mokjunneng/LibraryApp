@@ -1,34 +1,3 @@
-// function updateBookById(bookId, borrowerId, dateOfReturn){
-//   let sql = `UPDATE book
-//            SET borrowed_by = ?, date_of_return = ?, date_of_borrow = ?
-//            WHERE book_id = ?`;
-//   let data = [borrowerId, dateOfReturn, bookId, new Date().toISOString()];
-//   console.log(data)
-//   return new Promise((resolve, reject) => {
-//     db.run(sql, data, function(err) {
-//       if (err) {
-//         return console.error(err.message);
-//       }
-//       console.log(`Row updated: ${this.changes}`);
-//     })
-//   })
-// }
-
-// function updateBookByIdWoDate(bookId, borrowerId){
-//   let sql = `UPDATE book
-//            SET borrowed_by = ?
-//            WHERE book_id = ?`;
-//   let data = [borrowerId, bookId];
-//   return new Promise((resolve, reject) => {
-//     db.run(sql, data, function(err) {
-//       if (err) {
-//         return console.error(err.message);
-//       }
-//       console.log(`Row updated: ${this.changes}`);
-//     })
-//   })
-// }
-
 const sqlite3 = require('sqlite3').verbose()
 
 let db = new sqlite3.Database('./models/databases/libraryapp.db', (err) => {
@@ -99,13 +68,12 @@ function getBooks() {
   });
 }
 
-function getBook(bookId) {
+function getBook(book_label) {
   let sql = `SELECT *
              FROM book
-             WHERE book_id = ?`;
-
+             WHERE book_label = ?`;
   return new Promise((resolve, reject) => {
-    db.get(sql, [bookId], (err, row) => {
+    db.get(sql, [book_label], (err, row) => {
       if (err) {
         return reject(err);
       }
@@ -183,6 +151,18 @@ function removeUser(ic) {
   });
 };
 
+function removeBook(book_label) {
+  let sql = `DELETE FROM book WHERE book_label=?`
+  return new Promise((resolve, reject) => {
+    db.run(sql, [book_label], function(err) {
+      if (err) {
+        return console.error(err.message);
+      };
+      console.log(`Deleted book with book label: ${book_label}`);
+    });
+  });
+};
+
 function updateBook(bookId, title, category, author, borrowed_by, date_of_return, date_of_borrow) {
   let sql = `UPDATE book
              SET title = ?, category = ?, author = ?, borrowed_by = ?, date_of_return = ?, date_of_borrow = ?
@@ -223,5 +203,6 @@ module.exports = {
   addBook: addBook,
   updateBook: updateBook,
   updateUser: updateUser,
-  removeUser: removeUser
+  removeUser: removeUser,
+  removeBook: removeBook
 }
