@@ -1,27 +1,15 @@
 // const db = require("./models/db")
 import db from './models/db';
 
-const nameHeaderStyle = {
-  width: '40%'
-};
-const icHeaderStyle = {
-  width: '30%'
-};
-const borrowTimesHeaderStyle = {
-  width: '25%'
-};
-const delHeaderStyle = {
-  width: '5%'
-};
-
 function UserRow(props) {
   function handleClick(e) {
     e.target.parentNode.nextElementSibling.classList.toggle("hidden");
   }
   return (
-    <tr onClick={handleClick}>
+    <tr>
       <td>{props.name}</td>
       <td>{props.ic}</td>
+      <td>{props.borrow_times}</td>
       <td>{props.lastseen}</td>
       <td><DelButton /></td>
     </tr>
@@ -51,7 +39,7 @@ const userProfileStyle = {
 function UserProfile(props) {
   return (
     <tr style={userProfileStyle} className="hidden user-profile">
-      <td colSpan="4"><p>Hello this is the profile of a user</p></td>
+      <td colSpan="5"><p>Hello this is the profile of a user</p></td>
     </tr>
   )
 }
@@ -128,21 +116,22 @@ class UserRecordsTable extends React.Component {
     alert("User added successfully!")
   }
 
-  expandProfile
-
   render() {
     return (
-      <table id="user-records-table">
-        <tbody>
-          <tr className="header">
-            <th style={nameHeaderStyle}>Name</th>
-            <th style={icHeaderStyle}>IC</th>
-            <th style={borrowTimesHeaderStyle}>Borrow Times</th>
-            <th style={delHeaderStyle}></th>
-          </tr>
-          {this.state.rows.map((user, i) => [<UserRow name={user.name} ic={user.ic} borrowtime={user.borrow_times} key={i}/>, <UserProfile key={user.name} />])}
-        </tbody>
-      </table>
+      <div>
+        <table id="user-records-table">
+          <tbody>
+            <tr className="header">
+              <th style={{width: "35%"}}>Name</th>
+              <th style={{width: "25%"}}>IC</th>
+              <th style={{width: "15%"}}>Borrow Times</th>
+              <th style={{width: "20%"}}>Last Seen</th>
+              <th style={{width: "5%"}}></th>
+            </tr>
+            {this.state.rows.map((user, i) => <UserRow name={user.name} ic={user.ic} borrow_times={user.borrow_times} lastseen={user.last_seen} key={i}/>)}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

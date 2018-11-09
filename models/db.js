@@ -30,7 +30,7 @@ date_of_borrow text\
 // list column: borrowed_books
 const createUserTable = "CREATE TABLE IF NOT EXISTS user \
 (user_id integer NOT NULL PRIMARY KEY,\
-name text UNIQUE NOT NULL,\
+name text NOT NULL,\
 ic text UNIQUE NOT NULL,\
 borrowed_books text,\
 access integer DEFAULT 1,\
