@@ -16,13 +16,11 @@ function BookRow(props) {
 function DelBookButton() {
   function handleClick(e) {
     var row = e.target.parentNode.parentNode;
-    // var bookProfile = row.nextElementSibling;
     var book_label = row.childNodes[0].textContent
     db.removeBook(book_label).catch(err => {
         return alert("Error deleting user");
     })
     row.parentNode.removeChild(row);
-    // bookProfile.parentNode.removeChild(bookProfile);
   }
   return (
     <button onClick={handleClick}>DEL</button>
@@ -32,14 +30,6 @@ function DelBookButton() {
 const bookProfileStyle = {
   backgroundColor: "#669999",
 }
-
-// function bookProfile(props) {
-//   return (
-//     <tr style={bookProfileStyle} className="hidden book-profile">
-//       <td colSpan="4"><p>Hello this is the profile of a book</p></td>
-//     </tr>
-//   )
-// }
 
 class BookRecordsTable extends React.Component {
   constructor(props) {
@@ -98,7 +88,6 @@ class BookRecordsTable extends React.Component {
     var book_title = document.getElementById("book-title").value;
     var category = document.getElementById("category").value;
     var author = document.getElementById("author-name").value;
-    // database.addBook(book_label, bookTitle, categorySelected, authorName);
     // Add user to table
     db.addBook(book_label, book_title, category, author).then((msg) => {
       db.getBook(book_label).then((book) => {
