@@ -88,7 +88,7 @@ function update_book_borrow(){
   var date_of_ret = document.getElementById("due-date-picker").value
   // var date_of_ret = new Date(`${year_of_ret}-${month_of_ret}-${day_of_ret}T23:59:59+00:00`).toISOString();
   // Set default due date to 2 weeks later if not specified
-  if (!date_of_ret) { 
+  if (!date_of_ret) {
     date_of_ret = new Date();
     date_of_ret.setDate(date_of_ret.getDate()+14);
   } else {
@@ -110,6 +110,8 @@ function update_book_borrow(){
       submit_borrow_button.classList.remove("is-loading");
     });
   });
+  console.log(document.getElementById("due-date-picker").value);
+  document.getElementById("due-date-picker").value = null;
   document.getElementById("borrow-form").reset();
 }
 
