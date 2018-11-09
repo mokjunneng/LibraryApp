@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <template class="task-template">
   <section id="book-directory-section" class="section js-section category-general">
     <h1>Book Directory</h1>
@@ -30,17 +28,19 @@
     </p>
 	  </div>
   </div>
-    <div>
+  <div id="root"></div>
+    <!-- <div>
       <table id="book-catalogue">
         <tr class="header">
-          <th style="width:10%;">Book ID</th>
-          <th style="width:25%;">Title</th>
+          <th style="width:11%;">Book Label</th>
+          <th style="width:15%;">Title</th>
           <th style="width:20%">Category</th>
           <th style="width:20%">Author</th>
           <th style="width:25%">Borrowed by</th>
+          <th style="width:5%"></th>
         </tr>
       </table>
-    </div>
+    </div> -->
     <div class="field">
       <h2>Add Books </h2>
   <div class="columns">
@@ -97,6 +97,5 @@
 </div>
 </div>
 </section>
-  <script type="text/javascript" src="./renderer-process/directory/book-directory.js"></script>
+  <script type="text/babel" src="./renderer-process/directory/book-directory.js"></script>
 </template>
-</html>
