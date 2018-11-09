@@ -225,36 +225,3 @@ module.exports = {
   updateUser: updateUser,
   removeUser: removeUser
 }
-// function checkExistingBook(bookId) {
-//   let sql= `SELECT 1
-//             FROM book
-//             WHERE book_id = ?`
-//   let data = [bookId];
-//   return new Promise((resolve, reject) => {
-//     db.run(sql, data, function(err) {
-//       var result = 1
-//       if (err) {
-//         result = 0
-//         reject(result)
-//       }
-//       resolve(result)
-//     });
-//   });
-// }
-
-// function checkExistingUser(userId){
-//   let sql= `SELECT 1
-//             FROM user
-//             WHERE user_id = ?`
-//   let data = [userId];
-//   return new Promise((resolve, reject) => {
-//     db.run(sql, data, function(err) {
-//       var result = 1
-//       if (err) {
-//         result = 0
-//         reject(result)
-//       }
-//       resolve(result)
-//     });
-//   });
-// }
