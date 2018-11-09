@@ -9,7 +9,12 @@
   "author": "Mok Jun Neng",
   "license": "ISC",
   "devDependencies": {
-    "electron-builder": "^20.28.4"
+    "electron-builder": "^20.28.4",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.1",
+    "react-datepicker": "^1.8.0",
+    "react-dom": "^16.6.1"
   },
   "dependencies": {
     "electron": "^3.0.0",
