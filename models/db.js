@@ -72,7 +72,6 @@ function getBook(book_label) {
   let sql = `SELECT *
              FROM book
              WHERE book_label = ?`;
-
   return new Promise((resolve, reject) => {
     db.get(sql, [book_label], (err, row) => {
       if (err) {
@@ -172,18 +171,19 @@ function updateBook(bookId, title, category, author, borrowed_by, date_of_return
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
       if (err) {
-        return console.error(err.message);
+        reject(err)
       }
       console.log(`Row updated: ${this.changes}`);
+      resolve();
     });
   });
 }
 
-function updateUser(ic, name, borrowed_books, access) {
+function updateUser(ic, name, borrowed_books) {
   let sql = `UPDATE user
-             SET name = ?, borrowed_books = ?, access = ?
+             SET name = ?, borrowed_books = ?
              WHERE ic = ?`;
-  let data = [name, borrowed_books, access, ic];
+  let data = [name, borrowed_books, ic];
   return new Promise((resolve, reject) => {
     db.run(sql, data, function(err) {
       if (err) {
