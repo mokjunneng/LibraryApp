@@ -14,17 +14,17 @@ book_label.addEventListener("blur", ()=> {
 });
 var borrower_id = document.getElementById('borrower-id')
 borrower_id.addEventListener("blur", ()=> {
-var borrower_id_value = document.getElementById('borrower-id').value;
+  var borrower_id_value = document.getElementById('borrower-id').value;
   idcheck(borrower_id_value,'read-only-borrower-name','borrower-id');
 });
 var book_return = document.getElementById('return-book-label')
 book_return.addEventListener("blur", ()=> {
-var book_return_value = document.getElementById('return-book-label').value;
- bookcheck(book_return_value,'read-only-return-title','return-book-label')
+  var book_return_value = document.getElementById('return-book-label').value;
+  bookcheck(book_return_value,'read-only-return-title','return-book-label')
 });
 var borrower_id = document.getElementById('returner-id')
 borrower_id.addEventListener("blur", ()=> {
-var borrower_id_value = document.getElementById('returner-id').value;
+  var borrower_id_value = document.getElementById('returner-id').value;
   idcheck(borrower_id_value,'read-only-returner-name','returner-id');
 });
 
@@ -51,7 +51,7 @@ function bookcheck(bookid, title, place){
   db.getBook(bookid).then((book) => {
     try {
       document.getElementById(title).value = book["title"];
-    }catch(err) {
+    } catch(err) {
       document.getElementById(place).value = "";
       alert('No such Book ID found');
     }
@@ -64,7 +64,7 @@ function idcheck(userid, username, place){
   db.getUser(userid).then((user) => {
     try {
       document.getElementById(username).value = user["name"];
-    }catch(err) {
+    } catch(err) {
       document.getElementById(place).value = "";
       alert('No such User ID found');
     }
@@ -86,7 +86,6 @@ function update_book_borrow(){
   var user_id = document.getElementById('borrower-id').value;
   if (checkEmptyField(user_id, "borrower-id", "Borrower ID field is empty!")) { return }
   var date_of_ret = document.getElementById("due-date-picker").value
-  // var date_of_ret = new Date(`${year_of_ret}-${month_of_ret}-${day_of_ret}T23:59:59+00:00`).toISOString();
   // Set default due date to 2 weeks later if not specified
   if (!date_of_ret) {
     date_of_ret = new Date();
@@ -96,22 +95,20 @@ function update_book_borrow(){
   }
   submit_borrow_button.classList.add("is-loading");
   db.getBook(book_label).then(book => {
-    if (book.borrowed_by) {
+  if (book.borrowed_by) {
       alert("Book is already being borrowed.");
       submit_borrow_button.classList.remove("is-loading");
       return
     }
     db.updateBook(book_label, book.title, book.category, book.author, user_id, date_of_ret.toISOString(), new Date(Date.now()).toISOString()).then(() => {
       submit_borrow_button.classList.remove("is-loading");
-      // alert("Book successfully borrowed!")
       update_user(user_id, book_label);
     }).catch(err => {
       alert("Error updating book");
       submit_borrow_button.classList.remove("is-loading");
     });
   });
-  console.log(document.getElementById("due-date-picker").value);
-  document.getElementById("due-date-picker").value = null;
+  // TODO:clear date picker value
   document.getElementById("borrow-form").reset();
 }
 
@@ -136,7 +133,6 @@ function update_book_ret(){
     }
     db.updateBook(book_label, book.title, book.category, book.author, 0, "", "").then(() => {
       submit_return_button.classList.remove("is-loading");
-      // alert("Book successfully returned!")
       update_user(user_id, book_label, borrow=false);
     }).catch(err => {
       alert("Error updating book");
@@ -153,7 +149,7 @@ function update_user(ic, book_label, borrow=true) {
     if (!borrowed_books) { borrowed_books = []; }
     if (borrow) {
       borrowed_books.push(book_label)
-    }else if (borrowed_books) {
+    } else if (borrowed_books) {
       var index = borrowed_books.indexOf(book_label);
       if (index > -1) {
         borrowed_books.splice(index, 1);
