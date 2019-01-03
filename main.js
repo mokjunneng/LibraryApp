@@ -1,9 +1,10 @@
 // boiletplate for starting a BrowserWindow process
 
-const { app, BrowserWindow } = require('electron')
-const db = require('./models/db')
+const electron = require('electron');
+app = electron.app;
+BrowserWindow = electron.BrowserWindow;
 
-let win
+let win;
 
 function createWindow() {
   const windowOptions = {
@@ -23,18 +24,12 @@ function createWindow() {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', function() {
+  createWindow();
+})
 
 app.on('window-all-close', () => {
   if (process.platform !== 'darwin') {
-    // close the database connection
-    db.close((err) => {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log('Close the database connection.');
-    });
-
     app.quit()
   }
 })
