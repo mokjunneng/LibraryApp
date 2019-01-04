@@ -18,14 +18,16 @@ module.exports = {
         unique: true
       },
       borrowed_books: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: ""
       },
       access: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
       },
       borrow_times: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       last_seen: {
         type: Sequelize.STRING

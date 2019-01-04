@@ -9,7 +9,7 @@
       </p>
       <form id="borrow-form">
         <div class="field">
-          <label class="label">Book ID</label>
+          <label class="label">Book Label</label>
           <div class="control">
             <input class="input" id="borrow-book-label" type="text" placeholder="Book Label">
           </div>
@@ -19,17 +19,20 @@
           <input class="input" id="read-only-book-title" type="text" value="This text is readonly" readonly>
         </div>
         <div class="field">
-          <label class="label">ID of Borrower</label>
+          <label class="label">Borrower's IC</label>
           <div class="control">
-            <input class="input" id="borrower-id" type="text" placeholder="ID">
+            <input class="input" id="borrower-ic" type="text" placeholder="IC">
           </div>
         </div>
         <div class="control">
           <label class="label">Borrower's Name</label>
           <input class="input" id="read-only-borrower-name" type="text" value="This text is readonly" readonly>
         </div>
-        <label class="label">Due Date (default is 2 weeks)</label>
-        <div id="date-field" class="field"></div>
+        <div class="control">
+          <label class="label">Due Date (default is 2 weeks)</label>
+          <!-- <div id="date-field" class="field"></div> -->
+          <input class="input" id="date-of-return" type="text" placeholder="MM/DD/YYYY">
+        </div>
         <div class="control">
           <button class="button is-primary" id="submit-borrow">Submit</button>
         </div>
@@ -53,9 +56,9 @@
           <input class="input" id="read-only-return-title" type="text" value="This text is readonly" readonly>
         </div>
         <div class="field">
-          <label class="label">ID of Borrower</label>
+          <label class="label">Borrower's IC</label>
           <div class="control">
-            <input class="input" id="returner-id" type="text" placeholder="ID">
+            <input class="input" id="returner-ic" type="text" placeholder="IC">
           </div>
         </div>
         <div class="control">
@@ -68,8 +71,6 @@
       </form>
     </div>
   </section>
-  <script type="text/javascript">
-   require('./renderer-process/check-in-out/check-in.js')
-  </script>
-  <script type="text/babel" src="./renderer-process/check-in-out/datepicker.js"></script>
+  <script src="./renderer-process/check-in-out/check-in.js"></script>
+  <!-- <script src="./js/datepicker.js"></script> -->
 </template>

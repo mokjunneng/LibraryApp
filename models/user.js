@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     name: { type: DataTypes.STRING, allowNull: false },
     ic: { type: DataTypes.STRING, allowNull: false, unique: true },
     access: { type: DataTypes.BOOLEAN, defaultValue: true },
-    borrow_times: DataTypes.INTEGER,
+    borrow_times: { type: DataTypes.INTEGER, defaultValue: 0 },
+    borrowed_books: { type: DataTypes.STRING, defaultValue: "" },
     last_seen: DataTypes.STRING
   });
 
@@ -24,40 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize
             .query('SELECT * FROM "' + "Users" + '" WHERE "' + "UserText" + '" @@ plainto_tsquery(\'english\', ' + query + ')', User);
   }
-
-      // getSearchVector: function() {
-      //     return 'UserText';
-      // },
-
-      // addFullTextIndex: function() {
-
-      //     if(sequelize.options.dialect !== 'postgres') {
-      //         console.log('Not creating search index, must be using POSTGRES to do this');
-      //         return;
-      //     }
-
-      //     var searchFields = ['name', 'ic'];
-      //     var User = this;
-
-      //     var vectorName = User.getSearchVector();
-      //     sequelize
-      //         .query('ALTER TABLE "' + User.tableName + '" ADD COLUMN "' + vectorName + '" TSVECTOR')
-      //         .success(function() {
-      //             return sequelize
-      //                     .query('UPDATE "' + User.tableName + '" SET "' + vectorName + '" = to_tsvector(\'english\', ' + searchFields.join(' || \' \' || ') + ')')
-      //                     .error(console.log);
-      //         }).success(function() {
-      //             return sequelize
-      //                     .query('CREATE INDEX user_search_idx ON "' + User.tableName + '" USING gin("' + vectorName + '");')
-      //                     .error(console.log);
-      //         }).success(function() {
-      //             return sequelize
-      //                     .query('CREATE TRIGGER user_vector_update BEFORE INSERT OR UPDATE ON "' + Post.tableName + '" FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger("' + vectorName + '", \'pg_catalog.english\', ' + searchFields.join(', ') + ')')
-      //                     .error(console.log);
-      //         }).error(console.log);
-
-      // },
-
   
   // User.associate = function(models) {
   //   User.hasMany(models.Book, {

@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false
       },
       borrowed_by: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       date_of_entry: {
         type: Sequelize.STRING

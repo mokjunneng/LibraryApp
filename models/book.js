@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     title: { type: DataTypes.STRING, allowNull: false },
     category: { type: DataTypes.STRING, allowNull: false },
     author: { type: DataTypes.STRING, allowNull: false },
-    borrowed_by: DataTypes.INTEGER,
+    borrowed_by: DataTypes.STRING,
     date_of_return: DataTypes.STRING,
     date_of_borrow: DataTypes.STRING
   });

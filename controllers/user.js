@@ -6,7 +6,8 @@ module.exports = {
             User.findOne({
                 where: {
                     ic: ic
-                }
+                },
+                raw: true,
             }).then((user) => {
                 resolve(user);
             }).catch((err) => {
@@ -67,6 +68,24 @@ module.exports = {
             console.log(`Deleted User: ${deletedUser}`);
         }).catch(err => {
             console.log(`Error deleting user with ic ${ic} : ${err}`);
+        });
+    },
+    updateUser(updateObject) {
+        return new Promise((resolve, reject) => {
+            User.update(updateObject, 
+                {
+                    fields: ["borrowed_books", "borrow_times"],
+                    where: {
+                        name: updateObject.name,
+                        ic: updateObject.ic,
+                    }
+                }
+            ).then((user) => {
+                resolve(user)
+                console.log(`Updated user: ${user}`);                
+            }).catch((err) => {
+                reject(err)
+            });
         });
     },
     search(query) {

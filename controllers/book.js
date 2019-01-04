@@ -6,7 +6,8 @@ module.exports = {
             Book.findOne({
                 where: {
                     label: label
-                }
+                },
+                raw: true,
             }).then((book) => {
                 resolve(book);
             }).catch((err) => {
@@ -71,6 +72,22 @@ module.exports = {
             console.log(`Deleted Book ${deletedBook}`);
         }).catch(err => {
             console.log(`Error deleting book: ${err}`);
+        });
+    },
+    updateBook(updateObject) {
+        return new Promise((resolve, reject) => { 
+            Book.update(updateObject, 
+                {
+                    fields: ['borrowed_by', 'date_of_return', 'date_of_borrow'],
+                    where: {
+                        label: updateObject.label,
+                    }
+                }).then((book) => {
+                    resolve(book)
+                    console.log(`Updated book: ${book}`);
+                }).catch(err => {
+                    reject(err);
+                });
         });
     },
     search(query) {
