@@ -172,6 +172,10 @@ function update_book_ret(){
 function update_user(ic, book_label, borrow=true) {
   dbUser.getUser(ic).then(user => {
     let borrowed_books;
+    let updateObject = {
+      name: user.name,
+      ic: ic
+    }
     // Initialize array
     if (!user.borrowed_books) { 
       borrowed_books = []; 
@@ -180,25 +184,20 @@ function update_user(ic, book_label, borrow=true) {
     }
     if (borrow) {
       borrowed_books.push(book_label)
+      updateObject.borrowing = true;
+      updateObject.borrow_times = user.borrow_times + 1
     } else if (borrowed_books) {
       var index = borrowed_books.indexOf(book_label);
       // check if book is in the list of borrowed books
       if (index > -1) {
         borrowed_books.splice(index, 1);
       }
+      if (!borrowed_books) {
+        updateObject.borrowing = false;
+      }
     }
-    let borrow_times = user.borrow_times;
-    if (!user.borrow_times) {
-      borrow_times = 0;
-    } else {
-      borrow_times += 1;
-    }
-    var updateObject = {
-      name: user.name,
-      ic: ic,
-      borrowed_books: JSON.stringify(borrowed_books),
-      borrow_times: borrow_times
-    };
+    
+    updateObject.borrowed_books = JSON.stringify(borrowed_books);
     dbUser.updateUser(updateObject).then(user => {
       alert("User and Book records updated!");
     }).catch(err => {

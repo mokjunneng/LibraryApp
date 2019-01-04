@@ -26,12 +26,7 @@ function Row(props) {
   return (
     <tr>
       {Object.keys(props.columns).map((key, i) => { return <ColItem value={props.columns[key]} key={i} /> })}
-      <td><DelButton /></td>
-      {/* <td>{props.name}</td>
-      <td>{props.ic}</td>
-      <td>{props.borrow_times}</td>
-      <td>{props.lastseen}</td>
-      <td><DelButton /></td> */}
+      <td><DelButton queryCol={props.delOptions.queryCol} db={props.delOptions.db} del={props.delOptions.del} /></td>
     </tr>
   );
 }
@@ -42,18 +37,24 @@ function TableHeader(props) {
   )
 }
 
-function DelButton() {
+function DelButton(props) {
   function handleClick(e) {
     var row = e.target.parentNode.parentNode;
-    var profile = row.nextElementSibling;
-    var ic = row.childNodes[1].textContent;
-    dbUser.removeUser(ic);
+    var queryCol = row.childNodes[props.queryCol - 1].textContent;
+    if (props.db === "User") {
+      dbUser.removeUser(queryCol);
+    } else {
+      dbBook.removeBook(queryCol);
+    }
     row.parentNode.removeChild(row);
-    profile.parentNode.removeChild(profile);
   }
-  return (
-    <button onClick={handleClick}>DEL</button>
-  )
+  if (props.del) {
+    return (
+      <button onClick={handleClick}>DEL</button>
+    )
+  } else {
+    return null;
+  }
 }
 
 class Table extends React.Component {
@@ -62,7 +63,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { subsetData, tableHeaderOptions } = this.props;
+    const { subsetData, tableHeaderOptions, delOptions } = this.props;
     const currRows = subsetData;
     if (!subsetData.length) return null;
 
@@ -71,13 +72,8 @@ class Table extends React.Component {
         <tbody>
           <tr className="header">
             {tableHeaderOptions.map((column, i) => <TableHeader colStyle={column.style} colName={column.name} key={i} />)}
-            {/* <th style={{width: "35%"}}>Name</th>
-            <th style={{width: "25%"}}>IC</th>
-            <th style={{width: "15%"}}>Borrow Times</th>
-            <th style={{width: "20%"}}>Last Seen</th>
-            <th style={{width: "5%"}}></th> */}
           </tr>
-          {currRows.map((row, i) => <Row columns={row} key={i}/>)}
+          {currRows.map((row, i) => <Row columns={row} delOptions={delOptions} key={i}/>)}
         </tbody>
       </table>
     );

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     access: { type: DataTypes.BOOLEAN, defaultValue: true },
     borrow_times: { type: DataTypes.INTEGER, defaultValue: 0 },
     borrowed_books: { type: DataTypes.STRING, defaultValue: "" },
-    last_seen: DataTypes.STRING
+    borrowing: { type: DataTypes.BOOLEAN, defaultValue: false}
   });
 
   User.getSearchVector = function() {

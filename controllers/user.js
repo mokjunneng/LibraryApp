@@ -40,9 +40,34 @@ module.exports = {
             });
         });
     },
+    getSubsetBorrowingUsers(offset, limit) {
+        return new Promise((resolve, reject) => {
+            User.findAll({
+                where: {
+                    borrowing: true
+                },
+                offset: offset,
+                limit: limit,
+                raw: true
+            }).then(users => {
+                resolve(users);
+            }).catch(err => {
+                reject(err);
+            });
+        })
+    },
     getUsersCount() {
         return new Promise((resolve, reject) => {
             User.count().then(count => {
+                resolve(count);
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    },
+    getBorrowingUsersCount() {
+        return new Promise((resolve, reject) => {
+            User.count({ where : { borrowing: true } }).then(count => {
                 resolve(count);
             }).catch(err => {
                 reject(err);
@@ -74,7 +99,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             User.update(updateObject, 
                 {
-                    fields: ["borrowed_books", "borrow_times"],
+                    fields: ["borrowed_books", "borrow_times", "borrowing"],
                     where: {
                         name: updateObject.name,
                         ic: updateObject.ic,

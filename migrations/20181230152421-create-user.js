@@ -29,8 +29,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
-      last_seen: {
-        type: Sequelize.STRING
+      borrowing: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

@@ -14,7 +14,6 @@ class UserRecordsSection extends React.Component {
             totalRecords: 0,
         }
         this.onPageChanged = this.onPageChanged.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.tableHeaderOptions = [
             {style: {width: "35%"}, name: "Name"},
@@ -23,13 +22,14 @@ class UserRecordsSection extends React.Component {
             {style: {width: "20%"}, name: "Last Seen"},
             {style: {width: "5%"}, name: ""},
         ]
-        // this.totalPageLimit = 5;   // Limit the number of pages of data to be fetched initially
+        this.delOptions = {
+            del: true,
+            db: "User",
+            queryCol: 2
+        }
         this.pageLimit = 3
         this.pageNeighbours = 2;
-        // Rows fetched will be from offset to rowsLimit
-        // this.rowsLimit = this.totalPageLimit * this.pageLimit;
         this.offset = 0;
-        // this.lastRowFetched = this.rowsLimit;  // Since initial offset is 0
     }
 
     componentDidMount() {
@@ -71,35 +71,15 @@ class UserRecordsSection extends React.Component {
                         searchedUsers.push(newUser);
                     })
                 }
-                this.setState({ subsetData : searchedUsers });
+                dbUser.getUsersCount().then((count) => {
+                    this.setState({ subsetData : searchedUsers, totalRecords : count });
+                });
             }).catch((err) => {
                 console.log(err);
             })
         } else {
             this.fetchUsersAndCount(this.offset);
         }
-    }
-
-    handleSearch(searchVal) {s
-        dbUser.search(searchVal).then(users => {
-            var searchedUsers = [];
-            var users = users[0];
-            console.log(users);
-            if (users) {
-                users.forEach((user) => {
-                    var newUser = {
-                        name: user.name,    
-                        ic: user.ic,
-                        borrow_times: user.borrow_times,
-                        last_seen: user.last_seen,
-                    }
-                    searchedUsers.push(newUser);
-                });
-            }
-            this.setState({ subsetData : searchedUsers});
-        }).catch(err => {
-            console.log(err);
-        })
     }
 
     onPageChanged(data) {
@@ -126,11 +106,12 @@ class UserRecordsSection extends React.Component {
         const pageLimit = this.pageLimit;
         const pageNeighbours = this.pageNeighbours;
         const tableHeaderOptions = this.tableHeaderOptions;
+        const delOptions = this.delOptions;
         if (!totalRecords) return null;
         return (
             <div>
-                <SearchBar placeholder="Search by name or ic..." handleSearch={this.handleSearch} handleKeyUp={this.handleKeyUp}/>
-                <Table subsetData={subsetData} tableHeaderOptions={tableHeaderOptions} />
+                <SearchBar placeholder="Search by name or ic..." handleKeyUp={this.handleKeyUp}/>
+                <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} />
                 <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
             </div>
         )
