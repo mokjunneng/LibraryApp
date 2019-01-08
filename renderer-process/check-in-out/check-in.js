@@ -192,7 +192,7 @@ function update_user(ic, book_label, borrow=true) {
       if (index > -1) {
         borrowed_books.splice(index, 1);
       }
-      if (!borrowed_books) {
+      if (!borrowed_books.length) {
         updateObject.borrowing = false;
       }
     }

@@ -1,35 +1,35 @@
 <template class="task-template">
   <section id="borrow-books-section" class="section js-section category-general">
-    <h1 id=borrowtitle>Borrow and return books </h1>
+    <h1 id=borrowtitle>Mượn và trả sách / Borrow and return books </h1>
     <div id="Page1">
-      Borrowing
-      <a id="return-button" href="#">Returning</a>
-      <p id=intro2>This is the section to borrow books<br>
-      to borrow a book type in the book<b> if not click on Returning above</b>.
+      Mượn sách / Borrowing
+      <a id="return-button" href="#">Trả sách / Returning</a>
+      <p id=intro2>Mục này để mượn sách / This is the section to borrow books<br>
+      to borrow a book type in the book<b> Nếu không có click vào phần Trả sách phía trên / if not click on Returning above</b>.
       </p>
       <form id="borrow-form">
         <div class="field">
-          <label class="label">Book Label</label>
+          <label class="label">Nhãn sách/ Book Label</label>
           <div class="control">
             <input class="input" id="borrow-book-label" type="text" placeholder="Book Label">
           </div>
         </div>
         <div class="control">
-          <label class="label">Book Title</label>
+          <label class="label">Tên sách / Book Title</label>
           <input class="input" id="read-only-book-title" type="text" value="This text is readonly" readonly>
         </div>
         <div class="field">
-          <label class="label">Borrower's IC</label>
+          <label class="label">Mã số người mượn / Borrower's IC</label>
           <div class="control">
             <input class="input" id="borrower-ic" type="text" placeholder="IC">
           </div>
         </div>
         <div class="control">
-          <label class="label">Borrower's Name</label>
+          <label class="label">Tên người mượn / Borrower's Name</label>
           <input class="input" id="read-only-borrower-name" type="text" value="This text is readonly" readonly>
         </div>
         <div class="control">
-          <label class="label">Due Date (default is 2 weeks)</label>
+          <label class="label">Thời hạn mượn sách / Due Date (default is 2 weeks)</label>
           <!-- <div id="date-field" class="field"></div> -->
           <input class="input" id="date-of-return" type="text" placeholder="MM/DD/YYYY">
         </div>
@@ -39,34 +39,34 @@
       </form>
     </div>
     <div id="Page2" >
-      Returning
-      <a id="borrow-button" href="#">Borrowing</a>
-      <p id=intro>This is the section to return books<br>
-      to return a book type in the book<b> if not click on Borrowing above</b>.
+      Trả sách / Returning
+      <a id="borrow-button" href="#">Mượn sách / Borrowing</a>
+      <p id=intro>Mục này để trả sách / This is the section to return books<br>
+      to return a book type in the book<b>Nếu không, click Mượn sách phía trên / if not click on Borrowing above</b>.
       </p>
       <form id='return-form'>
         <div class="field">
-          <label class="label">Book ID</label>
+          <label class="label">Nhãn sách / Book Label</label>
           <div class="control">
             <input class="input" id="return-book-label" type="text" placeholder="Book Label">
           </div>
         </div>
         <div class="control">
-          <label class="label">Book Title</label>
+          <label class="label">Tên sách / Book Title</label>
           <input class="input" id="read-only-return-title" type="text" value="This text is readonly" readonly>
         </div>
         <div class="field">
-          <label class="label">Borrower's IC</label>
+          <label class="label">Mã số người mượn / Borrower's IC</label>
           <div class="control">
             <input class="input" id="returner-ic" type="text" placeholder="IC">
           </div>
         </div>
         <div class="control">
-          <label class="label">Borrower's Name</label>
+          <label class="label">Tên người mượn / Borrower's Name</label>
           <input class="input" id='read-only-returner-name' type="text" value="This text is readonly" readonly>
         </div>
         <div class="control">
-            <button class="button is-primary" id='submit-return'>Submit</button>
+            <button class="button is-primary" id='submit-return'>Hoàn thành / Submit</button>
         </div>
       </form>
     </div>

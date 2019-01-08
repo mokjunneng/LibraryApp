@@ -17,11 +17,11 @@ class OngoingBorrowersSection extends React.Component {
         this.onPageChanged = this.onPageChanged.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.tableHeaderOptions = [
-            {style: {width: "15%"}, name: "Name"},
-            {style: {width: "15%"}, name: "IC"},
+            {style: {width: "15%"}, name: "Tên / Name"},
+            {style: {width: "15%"}, name: "Mã số / IC"},
             {style: {width: "30%"}, name: "Borrowed Book"},
-            {style: {width: "20%"}, name: "Due Date"},
-            {style: {width: "15%"}, name: "Borrow Times"},
+            {style: {width: "20%"}, name: "Thời hạn mượn sách / Due Date"},
+            {style: {width: "15%"}, name: "Thời gian mượn / Borrow Times"},
             {style: {width: "5%"}, name: ""},
         ];
         this.delOptions = {
@@ -38,7 +38,7 @@ class OngoingBorrowersSection extends React.Component {
 
     fetchBorrowersAndCount(offset) {
         dbUser.getSubsetBorrowingUsers(offset, this.pageLimit).then(users => {
-            var dataRows = [];
+            // var dataRows = [];
             var promises = [];
             users.forEach(user => {
                 let borrowed_books = JSON.parse(user.borrowed_books);
@@ -52,16 +52,15 @@ class OngoingBorrowersSection extends React.Component {
                                 due_date: moment(book.date_of_return).utc().format('YYYY-MM-DD'),
                                 borrow_times: user.borrow_times
                             };
-                            dataRows.push(newUser);
-                            resolve();  
+                            // dataRows.push(newUser);
+                            resolve(newUser);  
                         });
                     }));
                 });
             });
-           
-            Promise.all(promises).then(() => {
+            Promise.all(promises).then((users) => {
                 dbUser.getBorrowingUsersCount().then(count => {
-                    this.setState({ subsetData : dataRows, totalRecords : count });
+                    this.setState({ subsetData : users, totalRecords : count });
                 });
             });
             
@@ -75,7 +74,7 @@ class OngoingBorrowersSection extends React.Component {
         if (searchVal) {
             dbUser.search(searchVal).then((users) => {
                 var usersData = users[0];
-                var searchedUsers = [];
+                // var searchedUsers = [];
                 var promises = [];
                 usersData.forEach((user) => {
                     if (!user.borrowing) {
@@ -92,15 +91,16 @@ class OngoingBorrowersSection extends React.Component {
                                     due_date: moment(book.date_of_return).utc().format('YYYY-MM-DD'),
                                     borrow_times: user.borrow_times
                                 };
-                                searchedUsers.push(newUser);
-                                resolve();
+                                // searchedUsers.push(newUser);
+                                resolve(newUser);
                             });    
                         }));
                     });
                 });
-                Promise.all(promises).then(() => {
+                console.log("done")
+                Promise.all(promises).then((users) => {
                     dbUser.getBorrowingUsersCount().then(count => {
-                        this.setState({ subsetData : searchedUsers, totalRecords : count });
+                        this.setState({ subsetData : users, totalRecords : count });
                     });
                 });
 

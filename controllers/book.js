@@ -64,14 +64,18 @@ module.exports = {
         });
     },
     removeBook(label) {
-        return Book.destroy({
-            where: {
-                label: label
-            }
-        }).then(deletedBook => {
-            console.log(`Deleted Book ${deletedBook}`);
-        }).catch(err => {
-            console.log(`Error deleting book: ${err}`);
+        return new Promise((resolve, reject) => {
+            Book.destroy({
+                where: {
+                    label: label
+                }
+            }).then(deletedBook => {
+                resolve();
+                console.log(`Deleted Book ${deletedBook}`);
+            }).catch(err => {
+                reject();
+                console.log(`Error deleting book: ${err}`);
+            });
         });
     },
     updateBook(updateObject) {

@@ -85,14 +85,18 @@ module.exports = {
         });
     },
     removeUser(ic) {
-        return User.destroy({
-            where: {
-                ic: ic
-            }
-        }).then(deletedUser => {
-            console.log(`Deleted User: ${deletedUser}`);
-        }).catch(err => {
-            console.log(`Error deleting user with ic ${ic} : ${err}`);
+        return new Promise((resolve, reject) => {
+            User.destroy({
+                where: {
+                    ic: ic
+                }
+            }).then(deletedUser => {
+                resolve();
+                console.log(`Deleted User: ${deletedUser}`);
+            }).catch(err => {
+                reject();
+                console.log(`Error deleting user with ic ${ic} : ${err}`);
+            });
         });
     },
     updateUser(updateObject) {
