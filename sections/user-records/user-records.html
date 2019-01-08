@@ -3,13 +3,7 @@
     <h1>User Records</h1>
     <p>This section contains a table that shows the records of all users of library.</p>
     <br>
-    <p class="control has-icons-left is-expanded">
-      <input class="input" type="text" id="search-bar-input" placeholder="Search by name or ic...">
-      <span class="icon is-small is-left">
-        <i class="fas fa-search"></i>
-      </span>
-    </p>
-    <div id="root"></div>
+    <div id="user-records-root"></div>
     <br>
     <h2>Add User</h2>
     <div class="field">
@@ -27,6 +21,7 @@
     <div class="control">
       <button class="button is-primary" id="add-user-btn">Submit</button>
     </div>
-    <script type="text/babel" src="./renderer-process/user-records/table.js"></script>
+    <script src="./js/user-records.js"></script>
+    <script src="./renderer-process/user-records/add-user.js"></script>
   </section>
 </template>
