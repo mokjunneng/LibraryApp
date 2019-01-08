@@ -15,11 +15,11 @@ class BookDirectorySection extends React.Component {
         this.onPageChanged = this.onPageChanged.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
         this.tableHeaderOptions = [
-            {style: {width: "15%"}, name: "Label"},
-            {style: {width: "15%"}, name: "Title"},
-            {style: {width: "20%"}, name: "Category"},
-            {style: {width: "20%"}, name: "Author"},
-            {style: {width: "25%"}, name: "Borrowed by"},
+            {style: {width: "15%"}, name: "Nhãn / Label"},
+            {style: {width: "15%"}, name: "Tên / Title"},
+            {style: {width: "20%"}, name: "Phân loại / Category"},
+            {style: {width: "20%"}, name: "Tác giả / Author"},
+            {style: {width: "25%"}, name: "Mượn bởi / Borrowed by"},
             {style: {width: "5%"}, name: ""},
         ];
         this.delOptions = {
@@ -61,7 +61,7 @@ class BookDirectorySection extends React.Component {
             dbBook.search(searchVal).then((books) => {
                 var books = books[0];
                 var searchedBooks = [];
-                if (books) {  
+                if (books) {
                     books.forEach((book) => {
                         var newBook = {
                             label: book.label,
