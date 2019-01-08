@@ -14,3 +14,7 @@
 .hidden {
   display: none;
 }
+
+.pagination .pagination-list {
+  list-style: none;
+}
