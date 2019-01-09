@@ -2,33 +2,62 @@
 var React = require('react');
 
 
-// const userProfileStyle = {
-//   backgroundColor: "#669999",
-// }
-
-// function UserProfile(props) {
-//   return (
-//     <tr style={userProfileStyle} className="hidden user-profile">
-//       <td colSpan="5"><p>Hello this is the profile of a user</p></td>
-//     </tr>
-//   )
-// }
 function ColItem(props) {
   return (
     <td>{props.value}</td>
   )
 }
 
-function Row(props) {
-  function handleClick(e) {
-    e.target.parentNode.nextElementSibling.classList.toggle("hidden");
+class Row extends React.Component {
+  constructor(props) {
+    super(props);
+    this.removedRow = this.removedRow.bind(this);
   }
-  return (
-    <tr>
-      {Object.keys(props.columns).map((key, i) => { return <ColItem value={props.columns[key]} key={i} /> })}
-      <td><DelButton queryCol={props.delOptions.queryCol} db={props.delOptions.db} del={props.delOptions.del} /></td>
-    </tr>
-  );
+
+  removedRow() {
+    this.props.removedRow();
+  }
+  
+  render() {
+    const { columns, delOptions, removedRow } = this.props;
+    return (
+      <tr>
+        {Object.keys(columns).map((key, i) => { return <ColItem value={columns[key]} key={i} /> })}
+        <td><DelButton queryCol={delOptions.queryCol} db={delOptions.db} del={delOptions.del} removedRow={this.removedRow} /></td>
+      </tr>
+    );
+  }
+}
+
+class DelButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    var row = e.target.parentNode.parentNode;
+    var queryCol = row.childNodes[this.props.queryCol - 1].textContent;
+    if (this.props.db === "User") {
+      dbUser.removeUser(queryCol).then(() => {
+        this.props.removedRow();
+      });
+    } else {
+      dbBook.removeBook(queryCol).then(() => {
+        this.props.removedRow();
+      });
+    }
+  }
+
+  render() {
+    if (this.props.del) {
+      return (
+        <button onClick={this.handleClick}>DEL</button>
+      )
+    } else {
+      return null;
+    }
+  }
 }
 
 function TableHeader(props) {
@@ -37,29 +66,14 @@ function TableHeader(props) {
   )
 }
 
-function DelButton(props) {
-  function handleClick(e) {
-    var row = e.target.parentNode.parentNode;
-    var queryCol = row.childNodes[props.queryCol - 1].textContent;
-    if (props.db === "User") {
-      dbUser.removeUser(queryCol);
-    } else {
-      dbBook.removeBook(queryCol);
-    }
-    row.parentNode.removeChild(row);
-  }
-  if (props.del) {
-    return (
-      <button onClick={handleClick}>DEL</button>
-    )
-  } else {
-    return null;
-  }
-}
-
 class Table extends React.Component {
   constructor(props) {
     super(props);
+    this.removedRow = this.removedRow.bind(this);
+  }
+
+  removedRow() {
+    this.props.removedRow();
   }
 
   render() {
@@ -73,7 +87,7 @@ class Table extends React.Component {
           <tr className="header">
             {tableHeaderOptions.map((column, i) => <TableHeader colStyle={column.style} colName={column.name} key={i} />)}
           </tr>
-          {currRows.map((row, i) => <Row columns={row} delOptions={delOptions} key={i}/>)}
+          {currRows.map((row, i) => <Row columns={row} delOptions={delOptions} removedRow={this.removedRow} key={i}/>)}
         </tbody>
       </table>
     );

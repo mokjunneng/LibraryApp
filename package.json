@@ -28,7 +28,9 @@
       ]
     },
     "win": {
-      "target": ["NSIS"]      
+      "target": [
+        "NSIS"
+      ]
     }
   },
   "devDependencies": {
@@ -40,19 +42,15 @@
     "electron": "latest"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "get-json": "^1.0.1",
-    "moment": "^2.22.2",
-    "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-datepicker": "^1.8.0",
-    "react-dom": "^16.6.3",
     "bulma": "^0.7.1",
     "debug": "^4.1.1",
-    "electron-settings": "^3.2.0",
-    "express": "^4.16.4",
+    "get-json": "^1.0.1",
+    "moment": "^2.22.2",
     "pg": "^7.7.1",
     "pg-hstore": "^2.3.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "sequelize": "^4.42.0"
   }
 }

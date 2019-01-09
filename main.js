@@ -1,8 +1,7 @@
 // boiletplate for starting a BrowserWindow process
 
-const electron = require('electron');
-app = electron.app;
-BrowserWindow = electron.BrowserWindow;
+const { app, BrowserWindow, remote, globalShortcut } = require('electron');
+const electronLocalShortcut = require('electron-localshortcut')
 
 let win;
 
@@ -19,9 +18,14 @@ function createWindow() {
 
   win.webContents.openDevTools()
 
+  globalShortcut.register('f5', () => {
+    win.reload();
+  });
+
   win.on('closed', () => {
     win = null
   })
+  
 }
 
 app.on('ready', function() {
@@ -31,6 +35,7 @@ app.on('ready', function() {
 app.on('window-all-close', () => {
   if (process.platform !== 'darwin') {
     app.quit()
+    globalShortcut.unregisterAll(win)
   }
 })
 

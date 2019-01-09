@@ -4,6 +4,7 @@ var ReactDOM = require('react-dom');
 var Table = require('./js/table.js')
 var Pagination = require('./js/pagination.js')
 var SearchBar = require('./js/search-bar.js')
+var AddUser = require('./js/add-user.js')
 
 class UserRecordsSection extends React.Component {
     constructor() {
@@ -15,11 +16,13 @@ class UserRecordsSection extends React.Component {
         }
         this.onPageChanged = this.onPageChanged.bind(this);
         this.handleKeyUp = this.handleKeyUp.bind(this);
+        this.addedUser = this.addedUser.bind(this);
+        this.removedRow = this.removedRow.bind(this);
         this.tableHeaderOptions = [
-            {style: {width: "35%"}, name: "Name"},
-            {style: {width: "25%"}, name: "IC"},
-            {style: {width: "15%"}, name: "Borrow Times"},
-            {style: {width: "20%"}, name: "Last Seen"},
+            {style: {width: "35%"}, name: "Tên / Name"},
+            {style: {width: "25%"}, name: "Mã số / IC"},
+            {style: {width: "15%"}, name: "Thời gian mượn / Borrow Times"},
+            {style: {width: "20%"}, name: "Lần cuối thấy / Last Seen"},
             {style: {width: "5%"}, name: ""},
         ]
         this.delOptions = {
@@ -30,6 +33,7 @@ class UserRecordsSection extends React.Component {
         this.pageLimit = 3
         this.pageNeighbours = 2;
         this.offset = 0;
+        this.currentPage = 1;
     }
 
     componentDidMount() {
@@ -85,6 +89,7 @@ class UserRecordsSection extends React.Component {
     onPageChanged(data) {
         const { currentPage } = data;
         const offset = (currentPage - 1) * this.pageLimit;
+        this.currentPage = currentPage;
 
         dbUser.getSubsetUsers(offset, this.pageLimit).then(users => {
             var subsetUsers = [];
@@ -101,6 +106,16 @@ class UserRecordsSection extends React.Component {
         });
     }
 
+    addedUser() {
+        let offset = (this.currentPage - 1) * this.pageLimit;
+        this.fetchUsersAndCount(offset);
+    }
+
+    removedRow() {
+        let offset = (this.currentPage - 1) * this.pageLimit;
+        this.fetchUsersAndCount(offset);
+    }
+
     render() {
         const { subsetData, totalRecords } = this.state;
         const pageLimit = this.pageLimit;
@@ -110,9 +125,13 @@ class UserRecordsSection extends React.Component {
         if (!totalRecords) return null;
         return (
             <div>
-                <SearchBar placeholder="Search by name or ic..." handleKeyUp={this.handleKeyUp}/>
-                <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} />
-                <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
+                <div style={{height: "60%"}}>
+                    <SearchBar placeholder="Search by name or ic..." handleKeyUp={this.handleKeyUp}/>
+                    <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} removedRow={this.removedRow}/>
+                    <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
+                </div>
+                <br></br>
+                <AddUser addedUser={this.addedUser} />
             </div>
         )
     }
