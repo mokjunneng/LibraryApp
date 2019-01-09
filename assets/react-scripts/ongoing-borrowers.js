@@ -19,7 +19,7 @@ class OngoingBorrowersSection extends React.Component {
         this.tableHeaderOptions = [
             {style: {width: "15%"}, name: "Tên / Name"},
             {style: {width: "15%"}, name: "Mã số / IC"},
-            {style: {width: "30%"}, name: "Borrowed Book"},
+            {style: {width: "30%"}, name: "Sách đang được mượn / Borrowed Book"},
             {style: {width: "20%"}, name: "Thời hạn mượn sách / Due Date"},
             {style: {width: "15%"}, name: "Thời gian mượn / Borrow Times"},
             {style: {width: "5%"}, name: ""},
