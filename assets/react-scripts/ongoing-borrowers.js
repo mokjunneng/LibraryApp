@@ -20,8 +20,8 @@ class OngoingBorrowersSection extends React.Component {
             {style: {width: "15%"}, name: "Tên / Name"},
             {style: {width: "15%"}, name: "Mã số / IC"},
             {style: {width: "30%"}, name: "Sách đang được mượn / Borrowed Book"},
-            {style: {width: "20%"}, name: "Thời hạn mượn sách / Due Date"},
-            {style: {width: "15%"}, name: "Thời gian mượn / Borrow Times"},
+            {style: {width: "20%"}, name: "Date of Borrow"},
+            {style: {width: "15%"}, name: "Thời hạn mượn sách / Due Date"},
             {style: {width: "5%"}, name: ""},
         ];
         this.delOptions = {
@@ -49,8 +49,8 @@ class OngoingBorrowersSection extends React.Component {
                                 name: user.name,
                                 ic: user.ic,
                                 borrowed_book: book.title + ` (${book.label})`,
-                                due_date: moment(book.date_of_return).utc().format('YYYY-MM-DD'),
-                                borrow_times: user.borrow_times
+                                date_of_borrow: moment(book.date_of_borrow).utc().format('DD/MM/YYYY'),
+                                due_date: moment(book.date_of_return).utc().format('DD/MM/YYYY'),
                             };
                             // dataRows.push(newUser);
                             resolve(newUser);  
@@ -88,8 +88,8 @@ class OngoingBorrowersSection extends React.Component {
                                     name: user.name,
                                     ic: user.ic,
                                     borrowed_book: book.title + ` (${book.label})`,
-                                    due_date: moment(book.date_of_return).utc().format('YYYY-MM-DD'),
-                                    borrow_times: user.borrow_times
+                                    date_of_borrow: moment(book.date_of_borrow).utc().format('DD/MM/YYYY'),
+                                    due_date: moment(book.date_of_return).utc().format('DD/MM/YYYY'),
                                 };
                                 // searchedUsers.push(newUser);
                                 resolve(newUser);

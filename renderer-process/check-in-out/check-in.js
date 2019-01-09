@@ -1,4 +1,5 @@
 const defaultDueDate = 14;
+// const moment = require("moment");
 
 // Attach onClick eventListeners to borrow/return link
 var shown = document.getElementById("return-button");
@@ -10,22 +11,22 @@ shown_one.addEventListener("click", ()=> { show("Page1","Page2") });
 var book_label = document.getElementById('borrow-book-label')
 book_label.addEventListener("blur", ()=> {
   var book_label_value = document.getElementById('borrow-book-label').value;
-  bookcheck(book_label_value,'read-only-book-title','borrow-book-label');
+  bookcheck(book_label_value.toUpperCase(),'read-only-book-title','borrow-book-label');
 });
 var borrower_ic = document.getElementById('borrower-ic')
 borrower_ic.addEventListener("blur", ()=> {
   var borrower_ic_value = document.getElementById('borrower-ic').value;
-  idcheck(borrower_ic_value,'read-only-borrower-name','borrower-ic');
+  idcheck(borrower_ic_value.toUpperCase(),'read-only-borrower-name','borrower-ic');
 });
 var book_return = document.getElementById('return-book-label')
 book_return.addEventListener("blur", ()=> {
   var book_return_value = document.getElementById('return-book-label').value;
-  bookcheck(book_return_value,'read-only-return-title','return-book-label')
+  bookcheck(book_return_value.toUpperCase(),'read-only-return-title','return-book-label')
 });
 var borrower_ic = document.getElementById('returner-ic')
 borrower_ic.addEventListener("blur", ()=> {
   var borrower_ic_value = document.getElementById('returner-ic').value;
-  idcheck(borrower_ic_value,'read-only-returner-name','returner-ic');
+  idcheck(borrower_ic_value.toUpperCase(),'read-only-returner-name','returner-ic');
 });
 
 // Attach onClick eventListeners to submit buttons
@@ -80,10 +81,17 @@ function checkEmptyField(val, field, alertMsg) {
   return false
 }
 
+function toDate(datestr) {
+  const [day, month, year] = datestr.split("/");
+  return new Date(year, month-1, day)
+}
+
 function update_book_borrow(){
   var book_label = document.getElementById('borrow-book-label').value;
+  book_label = book_label.toUpperCase();
   if (checkEmptyField(book_label, "borrow-book-label", "Book ID field is empty!")) { return }
   var user_ic = document.getElementById('borrower-ic').value;
+  user_ic = user_ic.toUpperCase();
   if (checkEmptyField(user_ic, "borrower-ic", "Borrower IC field is empty!")) { return }
   var date_of_ret = document.getElementById("date-of-return").value
   // Set default due date to 2 weeks later if not specified
@@ -91,20 +99,22 @@ function update_book_borrow(){
     date_of_ret = new Date();
     date_of_ret.setDate(date_of_ret.getDate() + defaultDueDate + 1);
   } else {
-    try {
-      date_of_ret = new Date(date_of_ret);
+    if (!moment(date_of_ret, "DD/MM/YYYY", true).isValid()) {
+      alert("Invalid date format!");
+      document.getElementById("date-of-return").focus();
+      return
+    }
 
-      var dateNow = new Date();
-      dateNow = dateNow.getTime();
-      var date_of_ret_compare = date_of_ret.getTime();
+    date_of_ret = toDate(date_of_ret);
 
-      if (date_of_ret_compare < dateNow) {
-        alert("Invalid date chosen!");
-        document.getElementById("date-of-return").focus();
-        return
-      }
-    } catch (err) {
-      alert("Incorrect date format.")
+    var dateNow = new Date();
+    dateNow = dateNow.getTime();
+    var date_of_ret_compare = date_of_ret.getTime();
+
+    if (date_of_ret_compare < dateNow) {
+      alert("Invalid date chosen!");
+      document.getElementById("date-of-return").focus();
+      return
     }
   }
   submit_borrow_button.classList.add("is-loading");
@@ -135,8 +145,10 @@ function update_book_borrow(){
 
 function update_book_ret(){
   var book_label = document.getElementById('return-book-label').value;
+  book_label = book_label.toUpperCase();
   if (checkEmptyField(book_label, "return-book-label", "Book ID field is empty!")) { return }
   var user_ic = document.getElementById('returner-ic').value;
+  user_ic = user_ic.toUpperCase();
   if (checkEmptyField(user_ic, "returner-ic", "Borrower IC field is empty!")) { return }
   submit_return_button.classList.add("is-loading");
   dbBook.getBook(book_label).then(book => {
