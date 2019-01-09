@@ -56,6 +56,22 @@ module.exports = {
             });
         })
     },
+    getSubsetBorrowingUsersFree() {
+        return new Promise((resolve, reject) => {
+            User.findAll({
+                where: {
+                    borrowing: true
+                },
+                // offset: offset,
+                // limit: limit,
+                // raw: true
+            }).then(users => {
+                resolve(users);
+            }).catch(err => {
+                reject(err);
+            });
+        })
+    },
     getUsersCount() {
         return new Promise((resolve, reject) => {
             User.count().then(count => {
@@ -101,7 +117,7 @@ module.exports = {
     },
     updateUser(updateObject) {
         return new Promise((resolve, reject) => {
-            User.update(updateObject, 
+            User.update(updateObject,
                 {
                     fields: ["borrowed_books", "borrow_times", "borrowing"],
                     where: {
@@ -111,7 +127,7 @@ module.exports = {
                 }
             ).then((user) => {
                 resolve(user)
-                console.log(`Updated user: ${user}`);                
+                console.log(`Updated user: ${user}`);
             }).catch((err) => {
                 reject(err)
             });
