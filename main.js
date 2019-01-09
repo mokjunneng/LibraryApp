@@ -1,7 +1,4 @@
-// boiletplate for starting a BrowserWindow process
-
-const { app, BrowserWindow, remote, globalShortcut } = require('electron');
-const electronLocalShortcut = require('electron-localshortcut')
+const { app, BrowserWindow, globalShortcut } = require('electron');
 
 let win;
 
