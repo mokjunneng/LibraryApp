@@ -75,13 +75,15 @@ module.exports = {
         });
     },
     addUser(name, ic) {
-        return User.create({
-            name: name,
-            ic: ic,
-        }).then(newUser => {
-            console.log(`Added new user : ${newUser}`);
-        }).catch(err => {
-            console.log(`Error adding user of name:${name}, ic:${ic} : ${err}`);
+        return new Promise((resolve, reject) => {
+            User.create({
+                name: name,
+                ic: ic,
+            }).then(()=> {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
         });
     },
     removeUser(ic) {
@@ -94,7 +96,7 @@ module.exports = {
                 resolve();
                 console.log(`Deleted User: ${deletedUser}`);
             }).catch(err => {
-                reject();
+                reject(err);
                 console.log(`Error deleting user with ic ${ic} : ${err}`);
             });
         });

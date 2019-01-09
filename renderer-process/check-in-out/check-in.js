@@ -89,7 +89,7 @@ function update_book_borrow(){
   // Set default due date to 2 weeks later if not specified
   if (!date_of_ret) {
     date_of_ret = new Date();
-    date_of_ret.setDate(date_of_ret.getDate() + defaultDueDate);
+    date_of_ret.setDate(date_of_ret.getDate() + defaultDueDate + 1);
   } else {
     try {
       date_of_ret = new Date(date_of_ret);

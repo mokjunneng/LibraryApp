@@ -52,15 +52,17 @@ module.exports = {
         });
     },
     addBook(label, title, category, author) {
-        return Book.create({
-            label: label,
-            title: title,
-            category: category,
-            author: author,
-        }).then(newBook => {
-            console.log(`Added new book: ${newBook}`);
-        }).catch(err => {
-            console.log(`Error adding new book: ${err}`);
+        return new Promise((resolve, reject) => {
+            Book.create({
+                label: label,
+                title: title,
+                category: category,
+                author: author,
+            }).then(() => {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
         });
     },
     removeBook(label) {
