@@ -1,9 +1,9 @@
 // boiletplate for starting a BrowserWindow process
 
-const { app, BrowserWindow } = require('electron')
-const db = require('./models/db')
+const { app, BrowserWindow, remote, globalShortcut } = require('electron');
+const electronLocalShortcut = require('electron-localshortcut')
 
-let win
+let win;
 
 function createWindow() {
   const windowOptions = {
@@ -18,24 +18,24 @@ function createWindow() {
 
   win.webContents.openDevTools()
 
+  globalShortcut.register('f5', () => {
+    win.reload();
+  });
+
   win.on('closed', () => {
     win = null
   })
+  
 }
 
-app.on('ready', createWindow)
+app.on('ready', function() {
+  createWindow();
+})
 
 app.on('window-all-close', () => {
   if (process.platform !== 'darwin') {
-    // close the database connection
-    db.close((err) => {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log('Close the database connection.');
-    });
-
     app.quit()
+    globalShortcut.unregisterAll(win)
   }
 })
 
