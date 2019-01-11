@@ -57,7 +57,7 @@ class DelButton extends React.Component {
           });
           return
         }
-        alert("Can't delete user, user is still borrowing books!")
+        alert("Can't delete user, user is still borrowing books! / Không thể xóa người dùng, người dùng này đang mượn sách")
       });
     } else {
       dbBook.getBook(queryCol).then(book => {
@@ -68,7 +68,7 @@ class DelButton extends React.Component {
           });
           return
         }
-        alert("Can't delete book. Someone is still borrowing it.")
+        alert("Can't delete book. Someone is still borrowing it. / Không thể xóa sách, có người đang mượn")
       })
      
     }

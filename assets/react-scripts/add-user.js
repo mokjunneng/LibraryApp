@@ -14,22 +14,22 @@ class AddUserSection extends React.Component {
         if (name === "") {
             document.getElementById("username-input").focus();
             event.target.classList.remove("is-loading");
-            alert("Name is missing!")
+            alert("Name is missing! / Không tìm thấy tên")
             return
         }
 
         if (ic === "") {
             document.getElementById("ic-input").focus();
             event.target.classList.remove("is-loading");
-            alert("IC is missing!")
+            alert("IC is missing! / Không tìm thấy mã số")
             return
         }
 
         dbUser.addUser(name, ic.toUpperCase()).then(() => {
             this.props.addedUser(); 
-            alert("User added successfully!");
+            alert("User added successfully! / Người dùng đã được thêm thành công");
         }).catch(err => {
-            alert("Error adding new user!");
+            alert("Error adding new user! / Lỗi thêm người dùng");
         });
         
         document.getElementById("username-input").value = "";
@@ -45,15 +45,15 @@ class AddUserSection extends React.Component {
                 <div className="field">
                     <label className="label">Tên / Name</label>
                     <div className="control">
-                        <input className="input" id="username-input" type="text" placeholder="e.g. Mok Jun Neng"></input>
+                        <input className="input" id="username-input" type="text" placeholder="e.g Nguyễn Trung Quân"></input>
                     </div>
                 </div>
                 <div className="field">
                     <label className="label">Mã số / IC</label>
                     <div className="control">
-                        <input className="input" id="ic-input" type="text" placeholder="e.g. a12345"></input>
+                        <input className="input" id="ic-input" type="text" placeholder="e.g. EVG001"></input>
                     </div>
-                </div>
+                </div>  
                 <div className="control">
                     <button className="button is-primary" id="add-user-btn" onClick={this.addUser}>Hoàn thành / Submit</button>
                 </div>

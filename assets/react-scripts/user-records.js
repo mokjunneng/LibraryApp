@@ -124,7 +124,7 @@ class UserRecordsSection extends React.Component {
         return (
             <div>
                 <div style={{height: "60%"}}>
-                    <SearchBar placeholder="Search by name or ic..." handleKeyUp={this.handleKeyUp}/>
+                    <SearchBar placeholder="Search by name or ic... / Tìm kiếm bằng tên hoặc mã số ..." handleKeyUp={this.handleKeyUp}/>
                     <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} removedRow={this.removedRow}/>
                     <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
                 </div>

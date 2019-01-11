@@ -55,7 +55,7 @@ function bookcheck(label, title, place){
     document.getElementById(title).value = "";
     document.getElementById(place).value = "";
     document.getElementById(place).focus();
-    alert("No such book found!");
+    alert("No such book found! / Không tìm thấy sách");
   });
 }
 function idcheck(useric, username, place){
@@ -68,7 +68,7 @@ function idcheck(useric, username, place){
     document.getElementById(username).value = "";
     document.getElementById(place).value = "";
     document.getElementById(place).focus();
-    alert('No such User IC found');
+    alert('No such User ID found / Không tìm thấy mã số người dùng');
   });
 }
 
@@ -100,7 +100,7 @@ function update_book_borrow(){
     date_of_ret.setDate(date_of_ret.getDate() + defaultDueDate + 1);
   } else {
     if (!moment(date_of_ret, "DD/MM/YYYY", true).isValid()) {
-      alert("Invalid date format!");
+      alert("Invalid date format! / Định dạng ngày không hợp lệ");
       document.getElementById("date-of-return").focus();
       return
     }
@@ -112,7 +112,7 @@ function update_book_borrow(){
     var date_of_ret_compare = date_of_ret.getTime();
 
     if (date_of_ret_compare < dateNow) {
-      alert("Invalid date chosen!");
+      alert("Invalid date chosen! / Ngày chọn không hợp lệ");
       document.getElementById("date-of-return").focus();
       return
     }
@@ -120,7 +120,7 @@ function update_book_borrow(){
   submit_borrow_button.classList.add("is-loading");
   dbBook.getBook(book_label).then(book => {
     if (book.borrowed_by) {
-        alert("Book is already being borrowed.");
+        alert("Book is already being borrowed. / Sách đang được mượn");
         submit_borrow_button.classList.remove("is-loading");
         return
     }
@@ -135,7 +135,7 @@ function update_book_borrow(){
       update_user(user_ic, book_label, borrow=true);
     }).catch(err => {
       console.log(err)
-      alert("Error updating book");
+      alert("Error updating book / đang cập nhật sách");
       submit_borrow_button.classList.remove("is-loading");
     });
   });
@@ -146,21 +146,21 @@ function update_book_borrow(){
 function update_book_ret(){
   var book_label = document.getElementById('return-book-label').value;
   book_label = book_label.toUpperCase();
-  if (checkEmptyField(book_label, "return-book-label", "Book ID field is empty!")) { return }
+  if (checkEmptyField(book_label, "return-book-label", "Book Label field is empty! / Nhãn sách đang trống")) { return }
   var user_ic = document.getElementById('returner-ic').value;
   user_ic = user_ic.toUpperCase();
-  if (checkEmptyField(user_ic, "returner-ic", "Borrower IC field is empty!")) { return }
+  if (checkEmptyField(user_ic, "returner-ic", "Borrower IC field is empty! / Mã số người dùng đang trống")) { return }
   submit_return_button.classList.add("is-loading");
   dbBook.getBook(book_label).then(book => {
     // Noone borrowing
     if (!book.borrowed_by) {
-      alert("Book has not been borrowed by anyone.");
+      alert("Book has not been borrowed by anyone. / Sách chưa được mượn");
       submit_return_button.classList.remove("is-loading");
       return
     }
     // User ic mismatch
     if (book.borrowed_by !== user_ic) {
-      alert("Wrong borrower IC");
+      alert("Wrong borrower IC / Sai mã số người mượn");
       submit_return_button.classList.remove("is-loading");
       return
     }
@@ -174,7 +174,7 @@ function update_book_ret(){
       submit_return_button.classList.remove("is-loading");
       update_user(user_ic, book_label, borrow=false);
     }).catch(err => {
-      alert("Error updating book");
+      alert("Error updating book / Lỗi cập nhật sách");
       submit_return_button.classList.remove("is-loading");
     });
   });
@@ -211,12 +211,12 @@ function update_user(ic, book_label, borrow=true) {
     
     updateObject.borrowed_books = JSON.stringify(borrowed_books);
     dbUser.updateUser(updateObject).then(user => {
-      alert("User and Book records updated!");
+      alert("User and Book records updated! / Danh sách người dùng và sách đang được cập nhật");
     }).catch(err => {
-      alert("Error updating user.");
+      alert("Error updating user. / Lỗi cập nhật người dùng");
     })
   }).catch(err => {
     console.log(err);
-    alert("Error getting user.");
+    alert("Error finding user. / Lỗi tìm người dùng");
   })
 }

@@ -21,14 +21,6 @@ class SearchBar extends React.Component{
     render() {
         return (
             <div className="field has-addons">
-                <p className="control">
-                    <span className="select">
-                        <select onChange={this.handleSortBy}>
-                            <option>Name</option>
-                            <option>IC</option>
-                        </select>
-                    </span>
-                </p>
                 <p className="control has-icons-left is-expanded">
                     <input className="input" id="user-searchbar-input" type="text" placeholder={this.placeholder} onKeyUp={this.handleKeyUp}></input>
                     <span className="icon is-small is-left">

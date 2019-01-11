@@ -127,7 +127,7 @@ class BookDirectorySection extends React.Component {
         return (
             <div>
                 <div style={{height: "60%"}}>
-                    <SearchBar placeholder="Search by label, title, category, author..." handleKeyUp={this.handleKeyUp}/>
+                    <SearchBar placeholder="Search by label, title, category, author... / Tìm kiếm bằng nhãn, tên, phân loại, tác giả..." handleKeyUp={this.handleKeyUp}/>
                     <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} removedRow={this.removedRow}/>
                     <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
                 </div>

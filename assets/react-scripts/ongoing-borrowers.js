@@ -22,7 +22,7 @@ class OngoingBorrowersSection extends React.Component {
             {style: {width: "15%"}, name: "Tên / Name"},
             {style: {width: "15%"}, name: "Mã số / IC"},
             {style: {width: "30%"}, name: "Sách đang được mượn / Borrowed Book"},
-            {style: {width: "20%"}, name: "Date of Borrow"},
+            {style: {width: "20%"}, name: "Ngày mượn / Date of Borrow"},
             {style: {width: "15%"}, name: "Thời hạn mượn sách / Due Date"},
             {style: {width: "5%"}, name: ""},
         ];
@@ -121,7 +121,7 @@ class OngoingBorrowersSection extends React.Component {
         var due_date = moment(book.date_of_return).utc().format('YYYY-MM-DD');
         if (due_date < dateNow) {  
             // Full Options
-            const notification = notifier.notify('Overdue', {
+            const notification = notifier.notify('Quá hạn / Overdue', {
                 message: book.title + ' by ' + user.name,
                 buttons: ['Dismiss'],
                 duration: 5000
@@ -151,7 +151,7 @@ class OngoingBorrowersSection extends React.Component {
         if (!totalRecords) return null;
         return (
             <div>
-                <SearchBar placeholder="Search by name or ic..." handleKeyUp={this.handleKeyUp}/>
+                <SearchBar placeholder="Search by name or ic... / Tìm kiếm bằng tên hoặc mã số ..." handleKeyUp={this.handleKeyUp}/>
                 <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} />
                 <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
             </div>
