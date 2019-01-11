@@ -1,9 +1,14 @@
 {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mokjunneng/LibraryApp"
+  },
   "name": "library_app",
-  "version": "1.0.0",
+  "version": "1.0.17",
   "description": "this is the library app for vietnam ocip",
   "main": "main.js",
   "scripts": {
+    "publish": "build --win -p always",
     "start": "electron --debug .",
     "pack": "build --dir",
     "dist": "build",
@@ -12,39 +17,36 @@
   "author": "Mok Jun Neng",
   "license": "ISC",
   "build": {
-    "appId": "radiate360libraryapp",
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
+    "appId": "com.github.mokjunneng.libraryapp",
     "win": {
       "target": [
         "NSIS"
-      ]
+      ],
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "mokjunneng",
+          "repo": "libraryapp"
+        }
+      ],
+      "icon": "build/test.ico"
     }
   },
   "devDependencies": {
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2",
-    "electron-builder": "latest",
-    "electron-rebuild": "^1.8.2",
-    "electron": "latest"
+    "electron": "latest",
+    "electron-builder": "^20.38.4",
+    "electron-rebuild": "^1.8.2"
   },
   "dependencies": {
+    "build": "^0.1.4",
     "bulma": "^0.7.1",
     "debug": "^4.1.1",
     "electron-settings": "^3.2.0",
+    "electron-updater": "^4.0.6",
+    "electron-log": "latest",
     "get-json": "^1.0.1",
     "moment": "^2.22.2",
     "pg": "^7.7.1",
