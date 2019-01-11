@@ -39,13 +39,38 @@ class DelButton extends React.Component {
     var row = e.target.parentNode.parentNode;
     var queryCol = row.childNodes[this.props.queryCol - 1].textContent;
     if (this.props.db === "User") {
-      dbUser.removeUser(queryCol).then(() => {
-        this.props.removedRow();
+      dbUser.getUser(queryCol).then(user => {
+        let borrowed_books;
+        if(!user.borrowed_books) {
+          console.log("empty")
+          dbUser.removeUser(queryCol).then(() => {
+            this.props.removedRow();
+          });
+          return
+        }else {
+          borrowed_books = JSON.parse(user.borrowed_books);
+        }
+        if (borrowed_books.length === 0) {
+          console.log("empty array")
+          dbUser.removeUser(queryCol).then(() => {
+            this.props.removedRow();
+          });
+          return
+        }
+        alert("Can't delete user, user is still borrowing books!")
       });
     } else {
-      dbBook.removeBook(queryCol).then(() => {
-        this.props.removedRow();
-      });
+      dbBook.getBook(queryCol).then(book => {
+        if(!book.borrowed_by) {
+          console.log("empty")
+          dbBook.removeBook(queryCol).then(() => {
+            this.props.removedRow();
+          });
+          return
+        }
+        alert("Can't delete book. Someone is still borrowing it.")
+      })
+     
     }
   }
 

@@ -77,9 +77,7 @@ class BookDirectorySection extends React.Component {
                         searchedBooks.push(newBook);
                     })
                 }
-                dbBook.getBooksCount().then(count => {
-                    this.setState({ subsetData : searchedBooks, totalRecords : count });
-                });
+                this.setState({ subsetData : searchedBooks, totalRecords : 1 });
             }).catch((err) => {
                 console.log(err);
             })

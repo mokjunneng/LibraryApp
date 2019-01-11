@@ -3,7 +3,8 @@
     <h1 id=borrowtitle>Mượn và trả sách / Borrow and return books </h1>
     <div id="Page1">
       Mượn sách / Borrowing
-      <a id="return-button" href="#">Trả sách / Returning</a>
+      <button class="button is-info" id="return-button">Trả sách / Returning</button>
+      <!-- <a id="return-button" href="#">Trả sách / Returning</a> -->
       <p id=intro2>Mục này để mượn sách / This is the section to borrow books<br>
       to borrow a book type in the book<b> Nếu không có click vào phần Trả sách phía trên / if not click on Returning above</b>.
       </p>
@@ -31,7 +32,7 @@
         <div class="control">
           <label class="label">Thời hạn mượn sách / Due Date (hạn mượn là 2 tuần / default is 2 weeks)</label>
           <!-- <div id="date-field" class="field"></div> -->
-          <input class="input" id="date-of-return" type="text" placeholder="MM/DD/YYYY">
+          <input class="input" id="date-of-return" type="text" placeholder="DD/MM/YYYY">
         </div>
         <div class="control">
           <button class="button is-primary" id="submit-borrow">Hoàn thành / Submit</button>
@@ -40,7 +41,8 @@
     </div>
     <div id="Page2" >
       Trả sách / Returning
-      <a id="borrow-button" href="#">Mượn sách / Borrowing</a>
+      <button class="button is-success" id="borrow-button">Mượn sách / Borrowing</button>
+      <!-- <a id="borrow-button" href="#">Mượn sách / Borrowing</a> -->
       <p id=intro>Mục này để trả sách / This is the section to return books<br>
       to return a book type in the book<b>Nếu không, click Mượn sách phía trên / if not click on Borrowing above</b>.
       </p>

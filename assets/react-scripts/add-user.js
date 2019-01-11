@@ -11,15 +11,31 @@ class AddUserSection extends React.Component {
         var name = document.getElementById("username-input").value;
         var ic = document.getElementById("ic-input").value;
 
-        dbUser.addUser(name, ic).then(() => {
-            this.props.addedUser();
+        if (name === "") {
+            document.getElementById("username-input").focus();
+            event.target.classList.remove("is-loading");
+            alert("Name is missing!")
+            return
+        }
+
+        if (ic === "") {
+            document.getElementById("ic-input").focus();
+            event.target.classList.remove("is-loading");
+            alert("IC is missing!")
+            return
+        }
+
+        dbUser.addUser(name, ic.toUpperCase()).then(() => {
+            this.props.addedUser(); 
+            alert("User added successfully!");
+        }).catch(err => {
+            alert("Error adding new user!");
         });
         
         document.getElementById("username-input").value = "";
         document.getElementById("ic-input").value = "";
         
-        event.target.classList.remove("is-loading");
-        alert("User added successfully!");
+        event.target.classList.remove("is-loading");  
     }
 
     render() {
