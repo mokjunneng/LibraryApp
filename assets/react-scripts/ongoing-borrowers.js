@@ -6,6 +6,8 @@ var Table = require('./js/table.js');
 var Pagination = require('./js/pagination.js');
 var SearchBar = require('./js/search-bar.js');
 var moment = require('moment');
+const notifier = require('electron-notifications');
+
 
 class OngoingBorrowersSection extends React.Component {
     constructor() {
@@ -45,6 +47,7 @@ class OngoingBorrowersSection extends React.Component {
                 borrowed_books.forEach(book_label => {
                     promises.push(new Promise((resolve, reject) => {
                         dbBook.getBook(book_label).then(book => {
+                            this.checkOverDueBook(book, user);
                             var newUser = {
                                 name: user.name,
                                 ic: user.ic,
@@ -109,6 +112,27 @@ class OngoingBorrowersSection extends React.Component {
             })
         } else {
             this.fetchBorrowersAndCount(this.offset);
+        }
+    }
+
+    checkOverDueBook(book, user) {
+        var dateNow = new Date(Date.now()).toISOString()
+  
+        var due_date = moment(book.date_of_return).utc().format('YYYY-MM-DD');
+        if (due_date < dateNow) {  
+            // Full Options
+            const notification = notifier.notify('Overdue', {
+                message: book.title + ' by ' + user.name,
+                buttons: ['Dismiss'],
+                duration: 5000
+            })
+
+            notification.on('buttonClicked', (text, buttonIndex, options) => {
+                if(text === 'Dismiss') {
+                    //open options.url
+                    notification.close()
+                }
+            })
         }
     }
 
