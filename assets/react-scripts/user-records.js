@@ -75,9 +75,7 @@ class UserRecordsSection extends React.Component {
                         searchedUsers.push(newUser);
                     })
                 }
-                dbUser.getUsersCount().then((count) => {
-                    this.setState({ subsetData : searchedUsers, totalRecords : count });
-                });
+                this.setState({ subsetData : searchedUsers, totalRecords : 1 });
             }).catch((err) => {
                 console.log(err);
             })
