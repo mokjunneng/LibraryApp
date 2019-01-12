@@ -123,14 +123,15 @@ class BookDirectorySection extends React.Component {
         const pageNeighbours = this.pageNeighbours;
         const tableHeaderOptions = this.tableHeaderOptions;
         const delOptions = this.delOptions;
-        if (!totalRecords) return null;
         return (
             <div>
-                <div style={{height: "60%"}}>
-                    <SearchBar placeholder="Search by label, title, category, author... / Tìm kiếm bằng nhãn, tên, phân loại, tác giả..." handleKeyUp={this.handleKeyUp}/>
-                    <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} removedRow={this.removedRow}/>
-                    <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
-                </div>
+                {totalRecords ? (
+                    <div style={{height: "60%"}}>
+                        <SearchBar placeholder="Search by label, title, category, author... / Tìm kiếm bằng nhãn, tên, phân loại, tác giả..." handleKeyUp={this.handleKeyUp}/>
+                        <Table subsetData={subsetData} delOptions={delOptions} tableHeaderOptions={tableHeaderOptions} removedRow={this.removedRow}/>
+                        <Pagination totalRecords={totalRecords} pageLimit={pageLimit} pageNeighbours={pageNeighbours} onPageChanged={this.onPageChanged}/>
+                    </div>
+                ) : null}
                 <br></br>
                 <AddBook addedBook={this.addedBook} />
             </div>
