@@ -41,11 +41,11 @@ This is a library app project that is specifically created for an overseas commu
 
 
 ## To Upload New Versions of the app for auto updating.
-1.Install necessary dependencies with:
+1. Install necessary dependencies with:
 
 npm install
 
-2.Generate a GitHub access token by going to https://github.com/settings/tokens/new. The access token should have the repo scope/permission. Once you have the token, assign it to an environment variable.
+2. Generate a GitHub access token by going to https://github.com/settings/tokens/new. The access token should have the repo scope/permission. Once you have the token, assign it to an environment variable.
 **Note that you must have write access to the repository in order to publish releases.**
 On macOS/linux:
 
@@ -57,7 +57,7 @@ Make sure to restart IDE/Terminal to inherit latest env variable.
 
 3. Update the version in package.json, commit and push to GitHub.
 
-4.Publish for your platform with:
+4. Publish for your platform with:
 npm run publish
 
 5. Release the release on github by editing the release and publish release.
