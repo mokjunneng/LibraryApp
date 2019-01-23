@@ -47,13 +47,15 @@ npm install
 
 2. Generate a GitHub access token by going to https://github.com/settings/tokens/new. The access token should have the repo scope/permission. Once you have the token, assign it to an environment variable.
 **Note that you must have write access to the repository in order to publish releases.**
-On macOS/linux:
 
- export GH_TOKEN="<YOUR_TOKEN_HERE>"
-On Windows, run in powershell:
+	- On macOS/linux:
 
- [Environment]::SetEnvironmentVariable("GH_TOKEN","<YOUR_TOKEN_HERE>","User")
-Make sure to restart IDE/Terminal to inherit latest env variable.
+		 export GH_TOKEN="<YOUR_TOKEN_HERE>"
+	 
+	- On Windows, run in powershell:
+
+ 		[Environment]::SetEnvironmentVariable("GH_TOKEN","<YOUR_TOKEN_HERE>","User")
+		Make sure to restart IDE/Terminal to inherit latest env variable.
 
 3. Update the version in package.json, commit and push to GitHub.
 
