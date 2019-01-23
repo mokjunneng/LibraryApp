@@ -54,7 +54,8 @@ This is a library app project that is specifically created for an overseas commu
 	 
 	- On Windows, run in powershell:
 
- 		[Environment]::SetEnvironmentVariable("GH_TOKEN","<YOUR_TOKEN_HERE>","User")
+ 		'[Environment]::SetEnvironmentVariable("GH_TOKEN","<YOUR_TOKEN_HERE>","User")'
+		
 		Make sure to restart IDE/Terminal to inherit latest env variable.
 
 3. Update the version in package.json, commit and push to GitHub.
